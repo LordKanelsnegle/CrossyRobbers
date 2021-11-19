@@ -1,0 +1,6 @@
+15:10:14 **** Clean-only build of configuration Nios II for project crossy_robbers_bsp ****
+make clean 
+[BSP clean complete]
+
+15:10:14 Build Finished (took 501ms)
+

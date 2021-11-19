@@ -1,0 +1,6 @@
+15:10:16 **** Clean-only build of configuration Nios II for project crossy_robbers ****
+make clean 
+[crossy_robbers clean complete]
+
+15:10:17 Build Finished (took 343ms)
+
