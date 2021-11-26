@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="alt_sld_fab" kind="alt_sld_fab" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2021.11.03.15:18:25 -->
+ <!-- 2021.11.26.00:15:25 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_DEVICE_FAMILY">
   <type>java.lang.String</type>
@@ -56,7 +56,7 @@
 the requested settings for a module instance. -->
   <parameter name="DESIGN_HASH">
    <type>java.lang.String</type>
-   <value>d3528cfce829dc32852f</value>
+   <value>3834cafa9b52a40d6c4c</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -104,7 +104,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="EP_INFOS">
    <type>java.lang.String</type>
-   <value>{hpath {lab7_soc:u0|lab7_soc_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:lab7_soc_jtag_uart_0_alt_jtag_atlantic} } {hpath {lab7_soc:u0|lab7_soc_nios2_gen2_0:nios2_gen2_0|lab7_soc_nios2_gen2_0_cpu:cpu|lab7_soc_nios2_gen2_0_cpu_nios2_oci:the_lab7_soc_nios2_gen2_0_cpu_nios2_oci|lab7_soc_nios2_gen2_0_cpu_debug_slave_wrapper:the_lab7_soc_nios2_gen2_0_cpu_debug_slave_wrapper|sld_virtual_jtag_basic:lab7_soc_nios2_gen2_0_cpu_debug_slave_phy|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst} } </value>
+   <value>{hpath {crossy_robbers_soc:cr0|crossy_robbers_soc_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:crossy_robbers_soc_jtag_uart_0_alt_jtag_atlantic} } {hpath {crossy_robbers_soc:cr0|crossy_robbers_soc_nios2_gen2_0:nios2_gen2_0|crossy_robbers_soc_nios2_gen2_0_cpu:cpu|crossy_robbers_soc_nios2_gen2_0_cpu_nios2_oci:the_crossy_robbers_soc_nios2_gen2_0_cpu_nios2_oci|crossy_robbers_soc_nios2_gen2_0_cpu_debug_slave_wrapper:the_crossy_robbers_soc_nios2_gen2_0_cpu_debug_slave_wrapper|sld_virtual_jtag_basic:crossy_robbers_soc_nios2_gen2_0_cpu_debug_slave_phy|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst} } </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2181,7 +2181,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="DESIGN_HASH">
    <type>java.lang.String</type>
-   <value>d3528cfce829dc32852f</value>
+   <value>3834cafa9b52a40d6c4c</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

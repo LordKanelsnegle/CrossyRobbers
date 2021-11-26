@@ -1,8 +1,8 @@
 <sld_project_info>
   <sld_infos>
-    <sld_info hpath="lab7_soc:u0" name="u0">
+    <sld_info hpath="crossy_robbers_soc:cr0" name="cr0">
       <assignment_values>
-        <assignment_value text="QSYS_NAME lab7_soc HAS_SOPCINFO 1 GENERATION_ID 1635970636"/>
+        <assignment_value text="QSYS_NAME crossy_robbers_soc HAS_SOPCINFO 1 GENERATION_ID 1637113429"/>
       </assignment_values>
     </sld_info>
     <sld_info hpath="sld_hub:auto_hub|alt_sld_fab:\instrumentation_fabric_with_node_gen:instrumentation_fabric" library="alt_sld_fab" name="instrumentation_fabric">

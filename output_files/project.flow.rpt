@@ -1,5 +1,5 @@
 Flow report for project
-Wed Nov 03 15:19:42 2021
+Fri Nov 26 00:16:25 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Nov 03 15:19:42 2021       ;
+; Flow Status                        ; Successful - Fri Nov 26 00:16:25 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; project                                     ;
-; Top-level Entity Name              ; lab7                                        ;
+; Top-level Entity Name              ; crossy_robbers                              ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,273 / 49,760 ( 11 % )                     ;
-;     Total combinational functions  ; 4,626 / 49,760 ( 9 % )                      ;
-;     Dedicated logic registers      ; 2,753 / 49,760 ( 6 % )                      ;
-; Total registers                    ; 2822                                        ;
+; Total logic elements               ; 3,771 / 49,760 ( 8 % )                      ;
+;     Total combinational functions  ; 3,162 / 49,760 ( 6 % )                      ;
+;     Dedicated logic registers      ; 2,407 / 49,760 ( 5 % )                      ;
+; Total registers                    ; 2476                                        ;
 ; Total pins                         ; 141 / 360 ( 39 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 49,664 / 1,677,312 ( 3 % )                  ;
+; Total memory bits                  ; 11,264 / 1,677,312 ( < 1 % )                ;
 ; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                             ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
@@ -66,45 +66,45 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/03/2021 15:18:03 ;
+; Start date & time ; 11/26/2021 00:15:01 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; project             ;
 +-------------------+---------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                      ;
-+-------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
-; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name       ; Section Id     ;
-+-------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 141812764183009.163597068306028                            ; --            ; --                ; --             ;
-; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                          ; --            ; --                ; eda_simulation ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                            ; <None>        ; --                ; --             ;
-; EDA_TIME_SCALE                      ; 1 ps                                                       ; --            ; --                ; eda_simulation ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                         ; --            ; --                ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                          ; --            ; --                ; --             ;
-; MISC_FILE                           ; lab7_soc/synthesis/../lab7_soc.cmp                         ; --            ; --                ; --             ;
-; MISC_FILE                           ; lab7_soc/synthesis/../../lab7_soc.qsys                     ; --            ; --                ; --             ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                          ; --            ; --                ; --             ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                          ; --            ; --                ; --             ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                 ; --            ; --                ; --             ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                 ; --            ; --                ; --             ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                     ; --            ; DE10_LITE_Default ; Top            ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                     ; --            ; lab7              ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                     ; --            ; DE10_LITE_Default ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                     ; --            ; lab7              ; Top            ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                     ; --            ; DE10_LITE_Default ; Top            ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                     ; --            ; lab7              ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                        ; --            ; --                ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                      ; --            ; --                ; --             ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                               ; --            ; --                ; --             ;
-; SLD_FILE                            ; lab7_soc/synthesis/lab7_soc.regmap                         ; --            ; --                ; --             ;
-; SLD_FILE                            ; lab7_soc/synthesis/lab7_soc.debuginfo                      ; --            ; --                ; --             ;
-; SLD_INFO                            ; QSYS_NAME lab7_soc HAS_SOPCINFO 1 GENERATION_ID 1635970636 ; --            ; lab7_soc          ; --             ;
-; SOPCINFO_FILE                       ; lab7_soc/synthesis/../../lab7_soc.sopcinfo                 ; --            ; --                ; --             ;
-; SYNTHESIS_ONLY_QIP                  ; On                                                         ; --            ; --                ; --             ;
-; TOP_LEVEL_ENTITY                    ; lab7                                                       ; project       ; --                ; --             ;
-+-------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                 ;
++-------------------------------------+----------------------------------------------------------------------+---------------+--------------------+----------------+
+; Assignment Name                     ; Value                                                                ; Default Value ; Entity Name        ; Section Id     ;
++-------------------------------------+----------------------------------------------------------------------+---------------+--------------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 141812764183009.163790730010860                                      ; --            ; --                 ; --             ;
+; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                                    ; --            ; --                 ; eda_simulation ;
+; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                                      ; <None>        ; --                 ; --             ;
+; EDA_TIME_SCALE                      ; 1 ps                                                                 ; --            ; --                 ; eda_simulation ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                                   ; --            ; --                 ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                                    ; --            ; --                 ; --             ;
+; MISC_FILE                           ; crossy_robbers_soc/synthesis/../crossy_robbers_soc.cmp               ; --            ; --                 ; --             ;
+; MISC_FILE                           ; crossy_robbers_soc/synthesis/../../crossy_robbers_soc.qsys           ; --            ; --                 ; --             ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                    ; --            ; --                 ; --             ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                    ; --            ; --                 ; --             ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                           ; --            ; --                 ; --             ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                           ; --            ; --                 ; --             ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                               ; --            ; DE10_LITE_Default  ; Top            ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                               ; --            ; crossy_robbers     ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                               ; --            ; DE10_LITE_Default  ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                               ; --            ; crossy_robbers     ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                               ; --            ; DE10_LITE_Default  ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                               ; --            ; crossy_robbers     ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                  ; --            ; --                 ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                                ; --            ; --                 ; --             ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                         ; --            ; --                 ; --             ;
+; SLD_FILE                            ; crossy_robbers_soc/synthesis/crossy_robbers_soc.regmap               ; --            ; --                 ; --             ;
+; SLD_FILE                            ; crossy_robbers_soc/synthesis/crossy_robbers_soc.debuginfo            ; --            ; --                 ; --             ;
+; SLD_INFO                            ; QSYS_NAME crossy_robbers_soc HAS_SOPCINFO 1 GENERATION_ID 1637113429 ; --            ; crossy_robbers_soc ; --             ;
+; SOPCINFO_FILE                       ; crossy_robbers_soc/synthesis/../../crossy_robbers_soc.sopcinfo       ; --            ; --                 ; --             ;
+; SYNTHESIS_ONLY_QIP                  ; On                                                                   ; --            ; --                 ; --             ;
+; TOP_LEVEL_ENTITY                    ; crossy_robbers                                                       ; project       ; --                 ; --             ;
++-------------------------------------+----------------------------------------------------------------------+---------------+--------------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -112,12 +112,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:51     ; 1.0                     ; 4987 MB             ; 00:01:09                           ;
-; Fitter               ; 00:00:25     ; 1.5                     ; 5889 MB             ; 00:00:48                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4705 MB             ; 00:00:04                           ;
-; Timing Analyzer      ; 00:00:07     ; 2.2                     ; 4922 MB             ; 00:00:12                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4746 MB             ; 00:00:03                           ;
-; Total                ; 00:01:30     ; --                      ; --                  ; 00:02:16                           ;
+; Analysis & Synthesis ; 00:00:39     ; 1.0                     ; 4987 MB             ; 00:01:00                           ;
+; Fitter               ; 00:00:26     ; 1.4                     ; 5837 MB             ; 00:00:47                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4699 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:05     ; 2.0                     ; 4903 MB             ; 00:00:10                           ;
+; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4724 MB             ; 00:00:03                           ;
+; Total                ; 00:01:15     ; --                      ; --                  ; 00:02:03                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

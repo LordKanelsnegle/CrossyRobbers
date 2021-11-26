@@ -1,4 +1,4 @@
-
+/*
 //-------------------------------------------------------------------------
 
 
@@ -94,4 +94,4 @@ module player (
     assign PlayerX = Player_X_Pos;
     assign PlayerY = Player_Y_Pos;
 
-endmodule
+endmodule*/

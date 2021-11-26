@@ -11,7 +11,7 @@
 //    For use with ECE 298 Lab 7                                         --
 //    UIUC ECE Department                                                --
 //-------------------------------------------------------------------------
-
+/*
 
 module  lane ( input Reset, frame_clk,
 					input [7:0] keycode,
@@ -92,4 +92,4 @@ module  lane ( input Reset, frame_clk,
     assign BallS = Ball_Size;
     
 
-endmodule
+endmodule*/

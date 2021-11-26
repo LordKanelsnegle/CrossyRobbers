@@ -8,136 +8,197 @@ namespace PNGtoBitmap
 {
     class Program
     {
-        class Tile
+        class Tile : IEquatable<Tile>
         {
-            public int Index { get; }
             public string[] Bitmap = new string[16];
             public List<Color> Colors = new List<Color>();
 
-            public Tile(int index)
+            public bool Equals(Tile other)
             {
-                Index = index;
+                return this.Bitmap.SequenceEqual(other.Bitmap) && this.Colors.SequenceEqual(other.Colors);
             }
         }
 
+        static string basePath = "../../../../../../";
+        static string romPath  = $"{basePath}hardware";
         static void Main(string[] args)
         {
-            // Get an input image from the user
-            Console.WriteLine("Drag your file into this folder and enter its name (e.g. tiles.png):");
-            string file = Console.ReadLine();
-            Console.WriteLine();
+            Console.WriteLine($"<--- READING MAP FILE --->");
 
+            // Initialize list and 2d array to track the tiles and their corresponding colors
+            List<Tile> tiles = new List<Tile>();
+            int[] tileMap = new int[40 * 30];
+
+            // Intialize list for the invalid tiles and a list for the color palette
+            List<int> invalidTiles = new List<int>();
+            List<Color> palette = new List<Color>();
+
+            // Get the maximum bits for pixel from the colors per tile
+            int colorsPerTile = 8;
+            int bitsPerPixel = (int)Math.Ceiling(Math.Log2(colorsPerTile));
+
+            // Attempt to process the image
             try
             {
                 // Attempt to retrieve the image
-                var image = new Bitmap(file, true);
+                var image = new Bitmap("map.png", true);
 
-                // Get an input for the colors per tile
-                Console.WriteLine("Enter the number of colors allowed per tile (should be 4 for tiles and 8 for entities):");
-                string input = Console.ReadLine();
-                Console.WriteLine();
-
-                int colorsPerTile = int.Parse(input);
-                if (colorsPerTile == 4 || colorsPerTile == 8)
+                if (image.Width == 640 && image.Height == 480)
                 {
-                    // Initialize list to track the tiles and their corresponding colors
-                    List<Tile> Tiles = new List<Tile>();
-
-                    // Get the maximum bits for pixel from the colors per tile
-                    int bitsPerPixel = (int)Math.Ceiling(Math.Log2(colorsPerTile));
-
                     // Loop through the image pixels to get colors and bitmaps per tile
-                    string bitmap = "";
-                    for (int y = 0; y < image.Height; y++)
+                    for (int tileY = 0; tileY < 30; tileY++)
                     {
-                        for (int x = 0; x < image.Width; x++)
+
+                        for (int tileX = 0; tileX < 40; tileX++)
                         {
-                            // Convert x,y coordinates into tile coordinates
-                            int tileX = x / 16;
-                            int tileY = y / 16;
-                            int tileIndex = (image.Width / 16) * tileY + tileX;
-
-                            // Get the current tile from our list or add it if it isnt there already
-                            Tile currTile = new Tile(tileIndex);
-                            if (Tiles.Count > tileIndex)
-                                currTile = Tiles[tileIndex];
-                            else
-                                Tiles.Add(currTile);
-
-                            // Get the color of the current pixel and add it to our tile's list if it isnt there already
-                            Color pixelColor = image.GetPixel(x, y);
-                            if (!currTile.Colors.Contains(pixelColor))
-                                currTile.Colors.Add(pixelColor);
-
-                            int bit = x % 16;
-                            if (bit == 0) //reset the bitmap row on every 16th bit
-                                bitmap = $"{bitsPerPixel * 16}'b";
-                            else if (bit == 15) //save the current bitmap row before it gets reset
-                                Tiles[tileIndex].Bitmap[y % 16] = bitmap + ",";
-
-                            // Convert color index to binary and pad with 0s if its less than the correct number of bits
-                            bitmap += Convert.ToString(currTile.Colors.IndexOf(pixelColor), 2).PadLeft(bitsPerPixel, '0');
-
-                            // Update the current tile
-                            Tiles[tileIndex] = currTile;
-                        }
-                    }
-
-                    if (Tiles.Count > 0)
-                    {
-                        // Check for invalid tiles
-                        var invalidTiles = Tiles.Where(t => t.Colors.Count > colorsPerTile);
-                        Console.WriteLine($"Total Tile Count: {Tiles.Count}\nMax Colors Per Tile: {colorsPerTile}\n");
-                        if (invalidTiles.Count() > 0)
-                            Console.WriteLine($"FAIL: Found {invalidTiles.Count()} tiles with more than {colorsPerTile} colors: " +
-                                $"{string.Join(", ", invalidTiles.Select(t => t.Index))}");
-                        else
-                        {
-                            // If no invalid tiles are found, pass a success
-                            Console.WriteLine($"PASS: All tiles have {colorsPerTile} colors or less.");
-
-                            // Delete the output file in preparation for appending to it
-                            if (File.Exists("output.txt"))
-                                File.Delete("output.txt");
-
-                            // Print all bitmaps (with their corresponding indices) to output.txt
-                            List<Color> palette = new List<Color>();
-                            for (int i = 0; i < Tiles.Count; i++)
+                            Tile currTile = new Tile();
+                            for (int y = 0; y < 16; y++)
                             {
-                                List<string> indices = new List<string>();
-                                foreach (var color in Tiles[i].Colors)
+                                string bitmap = $"{bitsPerPixel * 16}'b";
+                                for (int x = 0; x < 16; x++)
                                 {
-                                    if (!palette.Contains(color))
-                                        palette.Add(color);
-                                    indices.Add(Convert.ToString(palette.IndexOf(color),2).PadLeft(5,'0'));
+                                    // Get the color of the current pixel and add it to our tile's list if it isnt there already
+                                    Color pixelColor = image.GetPixel(16 * tileX + x, 16 * tileY + y);
+                                    if (!currTile.Colors.Contains(pixelColor))
+                                        currTile.Colors.Add(pixelColor);
+
+                                    // Convert color index to binary and pad with 0s if its less than the correct number of bits
+                                    bitmap += Convert.ToString(currTile.Colors.IndexOf(pixelColor), 2).PadLeft(bitsPerPixel, '0');
                                 }
-                                File.AppendAllText("output.txt", $"\n//tile {i}: {string.Join(", ", indices)}\n");
-                                File.AppendAllLines("output.txt", Tiles[i].Bitmap);
+                                currTile.Bitmap[y] = bitmap;
                             }
-                            Console.WriteLine($"PASS: Printed all tiles to output.txt");
-
-                            // Print the palette to the end of output.txt, if there is the correct number of colors
-                            if (palette.Count <= 32)
+                            int mapIdx = 40 * tileY + tileX;
+                            int tileIdx = tiles.IndexOf(currTile);
+                            if (tileIdx == -1)
                             {
-                                File.AppendAllText("output.txt", "\n\n//PALETTE");
-                                foreach (var color in palette)
-                                    File.AppendAllText("output.txt", $"\n32'b{Convert.ToString(color.ToArgb(), 2).PadLeft(32, '0')},"); //32 bits per color
-
-                                Console.WriteLine($"PASS: Printed {palette.Count}-color palette to output.txt");
-                            } else
-                                Console.WriteLine($"FAIL: Expected 32-color palette at most, found {palette.Count} colors.");
+                                if (currTile.Colors.Count <= colorsPerTile)
+                                {
+                                    tileIdx = tiles.Count;
+                                    tiles.Add(currTile);
+                                }
+                                else
+                                    invalidTiles.Add(mapIdx);
+                            }
+                            tileMap[mapIdx] = tileIdx;
                         }
                     }
-                    else
-                        Console.WriteLine($"No 16x16 tiles found in {input}.");
+
+                    // Update the color palette from the valid tiles
+                    palette.AddRange(tiles.SelectMany(t => t.Colors).Distinct());
+                    // Make sure color at index 0 is black, for error tiles
+                    palette.Remove(Color.FromArgb(255,0,0,0)); //cant use Color.Black because it has "named" field
+                    palette.Insert(0, Color.FromArgb(255, 0, 0, 0));
                 }
                 else
-                    Console.WriteLine($"\"{input}\" is not an acceptable number.");
+                    Console.WriteLine("FAIL: Input map is not 640x480.");
             }
-            catch (ArgumentException) { Console.WriteLine($"Unable to find {file}."); }
+            catch (ArgumentException) { Console.WriteLine("FAIL: Unable to find map.png."); }
 
-            Console.WriteLine($"Press any key to continue.");
+            // Display results to console
+            int tileBits = (int)Math.Ceiling(Math.Log2(tiles.Count));
+            int colorBits = (int)Math.Ceiling(Math.Log2(palette.Count));
+            string invalid = "";
+            foreach (int idx in invalidTiles)
+                invalid += $"({idx % 40},{idx / 40}), ";
+            Console.WriteLine($"Valid Tile Count: {tiles.Count}");
+            Console.WriteLine($"    {colorsPerTile} Color Tiles: {tileBits}-bit index");
+            Console.WriteLine($"Invalid Tile Count: {invalidTiles.Count}");
+            Console.WriteLine($"    Affected Tiles: {(invalid == "" ? "N/A" : invalid.Substring(0,invalid.Length-2))}");
+            Console.WriteLine($"Palette Color Count: {palette.Count} ({colorBits}-bit index)");
+            Console.WriteLine("\nPress any key to generate the output files.");
             Console.ReadKey();
+
+            // Print map_rom
+            PrintMapRom(tileMap, tiles, palette, tileBits, colorBits);
+
+            // Print tile_rom
+            PrintTileRom(tiles, bitsPerPixel);
+
+            // Print palette_rom
+            PrintPaletteRom(palette, 64);
+
+            Console.WriteLine("\nPress any key to continue.");
+            Console.ReadKey();
+        }
+
+        static void PrintMapRom(int[] tileMap, List<Tile> tiles, List<Color> palette, int tileBits, int colorBits)
+        {
+            int dataWidth = tileBits + colorBits * 8;
+            Console.WriteLine("\n<--- PRINTING MAP ROM --->");
+
+            // Prepare the output file
+            PrepareRomFile("map", tileMap.Length, dataWidth);
+            
+            // Iterate over the tile map
+            for (int i = 0; i < tileMap.Length; i++)
+            {
+                int tileIdx = tileMap[i];
+                string data = Convert.ToString(tileIdx, 2).PadLeft(tileBits, '0'); //first, store the tile index in data
+                if (tileIdx > -1)
+                {
+                    var colors = tiles[tileIdx].Colors;
+                    foreach (var color in colors)
+                        data += Convert.ToString(palette.IndexOf(color), 2).PadLeft(colorBits, '0'); //then, store each color index
+                    int y = data.Length;
+                    data = data.PadRight(dataWidth, '0'); //pad right to fill the unused bits with 0s
+                }
+                else
+                    data = $"{dataWidth}'b".PadRight(dataWidth, '0'); //if invalid tile, just set it all to 0s (black square)
+                File.AppendAllText($"{romPath}/map_rom.sv", $"\n        //Tile {i} ({(i % 40)},{(i / 40)})" + 
+                                                            $"\n        {dataWidth}'b{data},");
+            }
+            File.AppendAllText($"{romPath}/map_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+            Console.WriteLine($"PASS: Printed tile map to {romPath}/map_rom.sv");
+        }
+
+        static void PrintTileRom(List<Tile> tiles, int bitsPerPixel)
+        {
+            Console.WriteLine("\n<--- PRINTING TILE ROM --->");
+
+            // Prepare the output file
+            PrepareRomFile("tile", tiles.Count*16, bitsPerPixel*16);
+
+            // Output all bitmaps (with their corresponding indices) to tile_rom
+            for (int i = 0; i < tiles.Count; i++)
+                File.AppendAllText($"{romPath}/tile_rom.sv", $"\n        //tile_code {i}" +
+                                                          $"\n        {string.Join(",\n        ", tiles[i].Bitmap)},");
+            File.AppendAllText($"{romPath}/tile_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+            Console.WriteLine($"PASS: Printed all tiles to {romPath}/tile_rom.sv");
+        }
+
+        static void PrintPaletteRom(List<Color> palette, int maxColors)
+        {
+            Console.WriteLine("\n<--- PRINTING PALETTE ROM --->");
+            if (palette.Count <= maxColors)
+            {
+                // Prepare the output file
+                PrepareRomFile("palette", maxColors, 24);
+
+                // Output all palette colors to palette_rom
+                foreach (var color in palette)
+                    File.AppendAllText($"{romPath}/palette_rom.sv", $"\n        24'b{Convert.ToString(color.ToArgb(), 2)[8..].PadLeft(24, '0')}, " +
+                                                                                $"//RGB({color.R},{color.G},{color.B})");
+                File.AppendAllText($"{romPath}/palette_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+
+                Console.WriteLine($"PASS: Printed the palette to {romPath}/palette_rom.sv");
+            }
+            else
+                Console.WriteLine($"FAIL: Expected {maxColors}-color palette at most, found {palette.Count} colors.");
+        }
+
+        static void PrepareRomFile(string rom, int itemCount, int dataBits)
+        {
+            // Calculate ROM address width
+            int addrWidth = (int)Math.Ceiling(Math.Log2(itemCount));
+
+            // Delete file if it exists and output the header data
+            if (File.Exists($"{romPath}/{rom}_rom.sv"))
+                File.Delete($"{romPath}/{rom}_rom.sv");
+            File.AppendAllText($"{romPath}/{rom}_rom.sv", $"module {rom}_rom (" +
+                                                    $"\n    input logic [{addrWidth-1}:0] addr," +
+                                                    $"\n    output logic [{dataBits-1}:0] data" +
+                                                    $"\n);\n" +
+                                                    $"\n    parameter bit [{dataBits-1}:0] ROM [{itemCount}] = " + "'{");
         }
     }
 }

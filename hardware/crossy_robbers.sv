@@ -67,6 +67,7 @@ module crossy_robbers (
 	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [1:0] signs;
 	logic [1:0] hundreds;
+	logic [7:0] red, green, blue;
 	logic [7:0] keycode;
 	
    logic Reset_h, blank, sync, pixel_clk;
@@ -111,7 +112,13 @@ module crossy_robbers (
 	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
 	
 	
-	assign {Reset_h}=~ (KEY[0]); 
+	//Assign one button to reset
+	assign {Reset_h}=~ (KEY[0]);
+
+	//Our A/D converter is only 12 bit
+	assign VGA_R = red[7:4];
+	assign VGA_G = green[7:4];
+	assign VGA_B = blue[7:4];
 
 	//assign signs = 2'b00;
 	//assign hex_num_4 = 4'h4;
@@ -171,7 +178,7 @@ module crossy_robbers (
 		  .DrawY(draw_y)           // vertical coordinate
     );
 	 
-	 player p1 (
+	 /*player p1 (
 	     //INPUTS
 	     .frame_clk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
 		  .keycode(keycode),
@@ -192,21 +199,22 @@ module crossy_robbers (
         .PlayerX(p2_x),
 		  .PlayerY(p2_y),
 		  .PlayerScore(p2_score)
-    );
+    );*/
 	 
 	 color_mapper colormapper (
 	     //INPUTS
+		  .Blank(blank),
 		  .DrawX(draw_x), 
 		  .DrawY(draw_y), 
-	     .PlayerOneX(p1_x),
-		  .PlayerOneY(p1_y),
-	     .PlayerTwoX(p2_x),
-		  .PlayerTwoY(p2_y),
+	     /*.P1X(p1_x),
+		  .P1Y(p1_y),
+	     .P2X(p2_x),
+		  .P2Y(p2_y),*/
 		  
         //OUTPUTS
-		  .Red(VGA_R), 
-		  .Green(VGA_G), 
-		  .Blue(VGA_B)
+		  .Red(red), 
+		  .Green(green), 
+		  .Blue(blue)
     );
 
 endmodule
