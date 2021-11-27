@@ -138,14 +138,16 @@ namespace PNGtoBitmap
                 {
                     var colors = tiles[tileIdx].Colors;
                     foreach (var color in colors)
-                        data += Convert.ToString(palette.IndexOf(color), 2).PadLeft(colorBits, '0'); //then, store each color index
+                        data = $"{Convert.ToString(palette.IndexOf(color), 2).PadLeft(colorBits, '0')}{data}"; //then, store each color index
                     int y = data.Length;
-                    data = data.PadRight(dataWidth, '0'); //pad right to fill the unused bits with 0s
+                    data = data.PadLeft(dataWidth, '0'); //pad left to fill the unused bits with 0s
                 }
                 else
-                    data = $"{dataWidth}'b".PadRight(dataWidth, '0'); //if invalid tile, just set it all to 0s (black square)
+                    data = $"{dataWidth}'b".PadLeft(dataWidth, '0'); //if invalid tile, just set it all to 0s (black square)
+                if (i < tileMap.Length - 1) //only append a comma if this is not the last one
+                    data += ",";
                 File.AppendAllText($"{romPath}/map_rom.sv", $"\n        //Tile {i} ({(i % 40)},{(i / 40)})" + 
-                                                            $"\n        {dataWidth}'b{data},");
+                                                            $"\n        {dataWidth}'b{data}");
             }
             File.AppendAllText($"{romPath}/map_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
             Console.WriteLine($"PASS: Printed tile map to {romPath}/map_rom.sv");
@@ -160,8 +162,13 @@ namespace PNGtoBitmap
 
             // Output all bitmaps (with their corresponding indices) to tile_rom
             for (int i = 0; i < tiles.Count; i++)
+            {
+                string comma = "";
+                if (i < tiles.Count - 1) //only append a comma if this is not the last one
+                    comma += ",";
                 File.AppendAllText($"{romPath}/tile_rom.sv", $"\n        //tile_code {i}" +
-                                                          $"\n        {string.Join(",\n        ", tiles[i].Bitmap)},");
+                                                          $"\n        {string.Join(",\n        ", tiles[i].Bitmap)}{comma}");
+            }
             File.AppendAllText($"{romPath}/tile_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
             Console.WriteLine($"PASS: Printed all tiles to {romPath}/tile_rom.sv");
         }
@@ -172,12 +179,17 @@ namespace PNGtoBitmap
             if (palette.Count <= maxColors)
             {
                 // Prepare the output file
-                PrepareRomFile("palette", maxColors, 24);
+                PrepareRomFile("palette", palette.Count, 24);
 
                 // Output all palette colors to palette_rom
-                foreach (var color in palette)
-                    File.AppendAllText($"{romPath}/palette_rom.sv", $"\n        24'b{Convert.ToString(color.ToArgb(), 2)[8..].PadLeft(24, '0')}, " +
-                                                                                $"//RGB({color.R},{color.G},{color.B})");
+                for (int i = 0; i < palette.Count; i++)
+                {
+                    var color = palette[i];
+                    string data = Convert.ToString(color.ToArgb(), 2)[8..].PadLeft(24, '0');
+                    if (i < palette.Count - 1) //only append a comma if this is not the last one
+                        data += ",";
+                    File.AppendAllText($"{romPath}/palette_rom.sv", $"\n        24'b{data} //RGB({color.R},{color.G},{color.B})");
+                }
                 File.AppendAllText($"{romPath}/palette_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
 
                 Console.WriteLine($"PASS: Printed the palette to {romPath}/palette_rom.sv");

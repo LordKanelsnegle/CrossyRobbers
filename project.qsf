@@ -437,6 +437,8 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/money.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/palette_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/map_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/tile_rom.sv
@@ -449,4 +451,3 @@ set_global_assignment -name QIP_FILE crossy_robbers_soc/synthesis/crossy_robbers
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/crossy_robbers.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/VGA_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/HexDriver.sv
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
