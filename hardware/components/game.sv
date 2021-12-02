@@ -9,55 +9,54 @@
 //                                                                       --
 //                                                                       --
 //-------------------------------------------------------------------------
-/*
-module game (
 
+module game (
+    input logic FrameClk, Reset, Continue,
+	 output logic SpawnEnable,
+	 output logic [9:0] LED
 );
 
-//=======================================================
-//  FSM LOGIC
-//=======================================================
+    parameter [15:0] round_duration = 7142; //round duration in frames, ie (int)59.52*seconds
+	 logic [15:0] timer;
 
     enum logic [1:0] { Menu, Game, End } curr_state, next_state; // Internal state logic
 		
-    always_ff @ (posedge Clk)
+    always_ff @ (posedge FrameClk)
     begin
-        if (Reset) 
+        if (Reset)
             curr_state <= Menu;
-        else 
-            curr_state <= Next_state;
+        else
+            curr_state <= next_state;
+				
+		  if (curr_state == Game)
+		      timer <= timer + 1;
+		  else
+		      timer <= 15'b0;
     end
    
     always_comb
     begin 
         // Default next state is staying at current state
         next_state = curr_state;
-		
-        // Default controls signal values
 		  
 		  // Assign next state
 		  unique case (curr_state)
-		      Halted: 
-		          if (Run) 
-		              next_state = S_18;                      
-		      S_18: 
-		          next_state = S_33_1;
+		      Menu,
+				End: // Split this later if adding more states e.g. map selection after Menu
+				begin
+		          if (Continue) 
+		              next_state = Game;
+				end
+		      Game:
+					 if (timer == round_duration)
+						  next_state = End;
 		      default : next_state = Menu;
 		  endcase
 		
-        // Assign control signals based on current state
-        case (curr_state)
-            Halted: ;
-            S_18: 
-                begin 
-                  GatePC     = 1'b1;
-                  LD_MAR     = 1'b1;
-                  PCMUX      = 2'b00;
-                  LD_PC      = 1'b1;
-                end
-            default: ;
-		  endcase
+        // Set output values
+		  SpawnEnable = (curr_state == Game);
+		  LED = 10'b1111111111 << ((10*timer) / round_duration);
 		  
     end 
 	
-endmodule*/
+endmodule

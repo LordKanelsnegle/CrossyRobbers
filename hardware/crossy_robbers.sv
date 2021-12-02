@@ -16,22 +16,18 @@ module crossy_robbers (
       ///////// Clocks /////////
       input    MAX10_CLK1_50,
 
-      ///////// KEY /////////
-      input    [ 1: 0]   KEY,
+      ///////// KEYS /////////
+      input              RESET,
+		input              CONTINUE,
 
-      ///////// SW /////////
-      input    [ 9: 0]   SW,
-
-      ///////// LEDR /////////
-      output   [ 9: 0]   LEDR,
+      ///////// LED /////////
+      output   [ 9: 0]   LED,
 
       ///////// HEX /////////
-      output   [ 7: 0]   HEX0,
-      output   [ 7: 0]   HEX1,
-      output   [ 7: 0]   HEX2,
-      output   [ 7: 0]   HEX3,
-      output   [ 7: 0]   HEX4,
-      output   [ 7: 0]   HEX5,
+      output   [ 6: 0]   HEX0,
+      output   [ 6: 0]   HEX1,
+      output   [ 6: 0]   HEX2,
+      output   [ 6: 0]   HEX3,
 
       ///////// SDRAM /////////
       output             DRAM_CLK,
@@ -64,14 +60,16 @@ module crossy_robbers (
 //  REG/WIRE declarations
 //=======================================================
 	logic SPI0_CS_N, SPI0_SCLK, SPI0_MISO, SPI0_MOSI, USB_GPX, USB_IRQ, USB_RST;
-	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
-	logic [1:0] signs;
-	logic [1:0] hundreds;
+	logic [3:0] hex_num_3, hex_num_2, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [7:0] red, green, blue;
 	logic [7:0] keycode;
 	
-   logic Reset_h, blank, sync, pixel_clk;
+   logic Reset_h, Continue_h, blank, sync, pixel_clk;
 	logic [9:0] draw_x, draw_y;
+	
+	logic spawnEn;
+	logic [9:0]  p1_x, p1_y, p2_x, p2_y;
+	logic [23:0] p1_pixel, p2_pixel;
 
 //=======================================================
 //  Structural coding
@@ -95,36 +93,21 @@ module crossy_robbers (
 	assign ARDUINO_IO[6] = 1'b1;
 	
 	//HEX drivers to convert numbers to HEX output
-	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
-	assign HEX4[7] = 1'b1;
-	
-	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
-	assign HEX3[7] = 1'b1;
-	
-	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
-	assign HEX1[7] = 1'b1;
-	
-	HexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
-	assign HEX0[7] = 1'b1;
-	
-	//fill in the hundreds digit as well as the negative sign
-	assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
-	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
+	HexDriver hex_driver3 (hex_num_3, HEX3);
+	HexDriver hex_driver2 (hex_num_2, HEX2);
+	HexDriver hex_driver1 (hex_num_1, HEX1);
+	HexDriver hex_driver0 (hex_num_0, HEX0);
 	
 	
-	//Assign one button to reset
-	assign {Reset_h}=~ (KEY[0]);
+	//Invert the input keys to make them active high
+	assign Reset_h    = ~RESET;
+	assign Continue_h = ~CONTINUE;
+
 
 	//Our A/D converter is only 12 bit
-	assign VGA_R = red[7:4];
+	assign VGA_R = red  [7:4];
 	assign VGA_G = green[7:4];
-	assign VGA_B = blue[7:4];
-
-	//assign signs = 2'b00;
-	//assign hex_num_4 = 4'h4;
-	//assign hex_num_3 = 4'h3;
-	//assign hex_num_1 = 4'h1;
-	//assign hex_num_0 = 4'h0;
+	assign VGA_B = blue [7:4];
 	
 	crossy_robbers_soc cr0 (
 		.clk_clk                           (MAX10_CLK1_50),   //clk.clk
@@ -132,7 +115,6 @@ module crossy_robbers (
 		.altpll_0_locked_conduit_export    (),    			   //altpll_0_locked_conduit.export
 		.altpll_0_phasedone_conduit_export (), 				   //altpll_0_phasedone_conduit.export
 		.altpll_0_areset_conduit_export    (),     			   //altpll_0_areset_conduit.export
-		.key_external_connection_export    (KEY),    		   //key_external_connection.export
 
 		//SDRAM
 		.sdram_clk_clk    (DRAM_CLK),            				   //clk_sdram.clk
@@ -155,12 +137,7 @@ module crossy_robbers (
 		//USB GPIO
 		.usb_rst_export (USB_RST),
 		.usb_irq_export (USB_IRQ),
-		.usb_gpx_export (USB_GPX),
-		
-		//LEDs and HEX
-		.hex_digits_export ({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
-		.leds_export       ({hundreds, signs, LEDR}),
-		.keycode_export    (keycode)
+		.usb_gpx_export (USB_GPX)
 	 );
 	 
 	 vga_controller vgacontroller (
@@ -178,38 +155,51 @@ module crossy_robbers (
 		  .DrawY(draw_y)           // vertical coordinate
     );
 	 
-	 /*player p1 (
+	 game g0 (
 	     //INPUTS
-	     .frame_clk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
-		  .keycode(keycode),
-		  .isPlayerOne(1'b1),
+	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
+		  .Reset(Reset_h),
+		  .Continue(Continue_h),
+					
+        //OUTPUTS
+        .SpawnEnable(spawnEn),
+		  .LED(LED)
+	 );
+	 
+	 player p1 (
+	     //INPUTS
+	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
+		  .SpawnEnable(spawnEn),
+		  .Keycode(keycode),
+		  .PlayerOne(1'b1),
 					
         //OUTPUTS
         .PlayerX(p1_x),
 		  .PlayerY(p1_y),
-		  .PlayerScore(p1_score)
+		  .PlayerPixel(p1_pixel)
     );
 	 player p2 (
 	     //INPUTS
-	     .frame_clk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
-		  .keycode(keycode),
-		  .isPlayerOne(1'b0),
+	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
+		  .SpawnEnable(spawnEn),
+		  .Keycode(keycode),
+		  .PlayerOne(1'b0),
 					
         //OUTPUTS
         .PlayerX(p2_x),
 		  .PlayerY(p2_y),
-		  .PlayerScore(p2_score)
-    );*/
+		  .PlayerPixel(p2_pixel)
+    );
 	 
 	 color_mapper colormapper (
 	     //INPUTS
 		  .Blank(blank),
 		  .DrawX(draw_x), 
 		  .DrawY(draw_y), 
-	     /*.P1X(p1_x),
+	     .P1X(p1_x),
 		  .P1Y(p1_y),
 	     .P2X(p2_x),
-		  .P2Y(p2_y),*/
+		  .P2Y(p2_y),
 		  
         //OUTPUTS
 		  .Red(red), 

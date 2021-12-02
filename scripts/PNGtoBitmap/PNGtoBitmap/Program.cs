@@ -19,19 +19,22 @@ namespace PNGtoBitmap
             }
         }
 
-        static string basePath = "../../../../../../";
-        static string romPath  = $"{basePath}hardware";
-        static void Main(string[] args)
+        static readonly string basePath = "../../../../../../";
+        static readonly string hardwarePath  = $"{basePath}hardware";
+        static void Main()
+        {
+            List<Color> palette = new List<Color>();
+            ReadMap(palette);     // Fully implemented and functional. Generates all ROM files.
+            ReadSprites(palette); // WIP - will process all sprites to produce a sprite table.
+        }
+        static void ReadMap(List<Color> palette)
         {
             Console.WriteLine($"<--- READING MAP FILE --->");
 
             // Initialize list and 2d array to track the tiles and their corresponding colors
             List<Tile> tiles = new List<Tile>();
-            int[] tileMap = new int[40 * 30];
-
-            // Intialize list for the invalid tiles and a list for the color palette
             List<int> invalidTiles = new List<int>();
-            List<Color> palette = new List<Color>();
+            int[] tileMap = new int[40 * 30];
 
             // Get the maximum bits for pixel from the colors per tile
             int colorsPerTile = 8;
@@ -41,7 +44,7 @@ namespace PNGtoBitmap
             try
             {
                 // Attempt to retrieve the image
-                var image = new Bitmap("map.png", true);
+                var image = new Bitmap("assets/map.png", true);
 
                 if (image.Width == 640 && image.Height == 480)
                 {
@@ -103,7 +106,7 @@ namespace PNGtoBitmap
             Console.WriteLine($"Valid Tile Count: {tiles.Count}");
             Console.WriteLine($"    {colorsPerTile} Color Tiles: {tileBits}-bit index");
             Console.WriteLine($"Invalid Tile Count: {invalidTiles.Count}");
-            Console.WriteLine($"    Affected Tiles: {(invalid == "" ? "N/A" : invalid.Substring(0,invalid.Length-2))}");
+            Console.WriteLine($"    Affected Tiles: {(invalid == "" ? "N/A" : invalid[0..^2])}");
             Console.WriteLine($"Palette Color Count: {palette.Count} ({colorBits}-bit index)");
             Console.WriteLine("\nPress any key to generate the output files.");
             Console.ReadKey();
@@ -139,18 +142,17 @@ namespace PNGtoBitmap
                     var colors = tiles[tileIdx].Colors;
                     foreach (var color in colors)
                         data = $"{Convert.ToString(palette.IndexOf(color), 2).PadLeft(colorBits, '0')}{data}"; //then, store each color index
-                    int y = data.Length;
                     data = data.PadLeft(dataWidth, '0'); //pad left to fill the unused bits with 0s
                 }
                 else
                     data = $"{dataWidth}'b".PadLeft(dataWidth, '0'); //if invalid tile, just set it all to 0s (black square)
                 if (i < tileMap.Length - 1) //only append a comma if this is not the last one
                     data += ",";
-                File.AppendAllText($"{romPath}/map_rom.sv", $"\n        //Tile {i} ({(i % 40)},{(i / 40)})" + 
+                File.AppendAllText($"{hardwarePath}/map_rom.sv", $"\n        //Tile {i} ({(i % 40)},{(i / 40)})" + 
                                                             $"\n        {dataWidth}'b{data}");
             }
-            File.AppendAllText($"{romPath}/map_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
-            Console.WriteLine($"PASS: Printed tile map to {romPath}/map_rom.sv");
+            File.AppendAllText($"{hardwarePath}/map_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+            Console.WriteLine($"PASS: Printed tile map to {hardwarePath}/map_rom.sv");
         }
 
         static void PrintTileRom(List<Tile> tiles, int bitsPerPixel)
@@ -166,11 +168,11 @@ namespace PNGtoBitmap
                 string comma = "";
                 if (i < tiles.Count - 1) //only append a comma if this is not the last one
                     comma += ",";
-                File.AppendAllText($"{romPath}/tile_rom.sv", $"\n        //tile_code {i}" +
+                File.AppendAllText($"{hardwarePath}/tile_rom.sv", $"\n        //tile_code {i}" +
                                                           $"\n        {string.Join(",\n        ", tiles[i].Bitmap)}{comma}");
             }
-            File.AppendAllText($"{romPath}/tile_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
-            Console.WriteLine($"PASS: Printed all tiles to {romPath}/tile_rom.sv");
+            File.AppendAllText($"{hardwarePath}/tile_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+            Console.WriteLine($"PASS: Printed all tiles to {hardwarePath}/tile_rom.sv");
         }
 
         static void PrintPaletteRom(List<Color> palette, int maxColors)
@@ -188,11 +190,11 @@ namespace PNGtoBitmap
                     string data = Convert.ToString(color.ToArgb(), 2)[8..].PadLeft(24, '0');
                     if (i < palette.Count - 1) //only append a comma if this is not the last one
                         data += ",";
-                    File.AppendAllText($"{romPath}/palette_rom.sv", $"\n        24'b{data} //RGB({color.R},{color.G},{color.B})");
+                    File.AppendAllText($"{hardwarePath}/palette_rom.sv", $"\n        24'b{data} //RGB({color.R},{color.G},{color.B})");
                 }
-                File.AppendAllText($"{romPath}/palette_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
+                File.AppendAllText($"{hardwarePath}/palette_rom.sv", "\n    };\n\n    assign data = ROM[addr];\n\nendmodule");
 
-                Console.WriteLine($"PASS: Printed the palette to {romPath}/palette_rom.sv");
+                Console.WriteLine($"PASS: Printed the palette to {hardwarePath}/palette_rom.sv");
             }
             else
                 Console.WriteLine($"FAIL: Expected {maxColors}-color palette at most, found {palette.Count} colors.");
@@ -204,9 +206,9 @@ namespace PNGtoBitmap
             int addrWidth = (int)Math.Ceiling(Math.Log2(itemCount));
 
             // Delete file if it exists and output the header data
-            if (File.Exists($"{romPath}/{rom}_rom.sv"))
-                File.Delete($"{romPath}/{rom}_rom.sv");
-            File.AppendAllText($"{romPath}/{rom}_rom.sv", $"module {rom}_rom (" +
+            if (File.Exists($"{hardwarePath}/{rom}_rom.sv"))
+                File.Delete($"{hardwarePath}/{rom}_rom.sv");
+            File.AppendAllText($"{hardwarePath}/{rom}_rom.sv", $"module {rom}_rom (" +
                                                     $"\n    input logic [{addrWidth-1}:0] addr," +
                                                     $"\n    output logic [{dataBits-1}:0] data" +
                                                     $"\n);\n" +

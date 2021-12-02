@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Fri Nov 26 17:27:06 2021
+Analysis & Synthesis Status : Successful - Wed Dec 01 21:20:14 2021
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : project
 Top-level Entity Name : crossy_robbers
 Family : MAX 10
-Total logic elements : 15,344
-    Total combinational functions : 14,378
-    Dedicated logic registers : 2,450
-Total registers : 2450
-Total pins : 141
+Total logic elements : 15,410
+    Total combinational functions : 14,485
+    Dedicated logic registers : 2,361
+Total registers : 2361
+Total pins : 111
 Total virtual pins : 0
 Total memory bits : 11,264
 Embedded Multiplier 9-bit elements : 0

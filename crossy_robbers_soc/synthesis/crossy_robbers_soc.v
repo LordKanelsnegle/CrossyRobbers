@@ -4,29 +4,26 @@
 
 `timescale 1 ps / 1 ps
 module crossy_robbers_soc (
-		input  wire        clk_clk,                        //                     clk.clk
-		output wire [15:0] hex_digits_export,              //              hex_digits.export
-		input  wire [1:0]  key_external_connection_export, // key_external_connection.export
-		output wire [7:0]  keycode_export,                 //                 keycode.export
-		output wire [13:0] leds_export,                    //                    leds.export
-		input  wire        reset_reset_n,                  //                   reset.reset_n
-		output wire        sdram_clk_clk,                  //               sdram_clk.clk
-		output wire [12:0] sdram_wire_addr,                //              sdram_wire.addr
-		output wire [1:0]  sdram_wire_ba,                  //                        .ba
-		output wire        sdram_wire_cas_n,               //                        .cas_n
-		output wire        sdram_wire_cke,                 //                        .cke
-		output wire        sdram_wire_cs_n,                //                        .cs_n
-		inout  wire [15:0] sdram_wire_dq,                  //                        .dq
-		output wire [1:0]  sdram_wire_dqm,                 //                        .dqm
-		output wire        sdram_wire_ras_n,               //                        .ras_n
-		output wire        sdram_wire_we_n,                //                        .we_n
-		input  wire        spi0_MISO,                      //                    spi0.MISO
-		output wire        spi0_MOSI,                      //                        .MOSI
-		output wire        spi0_SCLK,                      //                        .SCLK
-		output wire        spi0_SS_n,                      //                        .SS_n
-		input  wire        usb_gpx_export,                 //                 usb_gpx.export
-		input  wire        usb_irq_export,                 //                 usb_irq.export
-		output wire        usb_rst_export                  //                 usb_rst.export
+		input  wire        clk_clk,          //        clk.clk
+		output wire [7:0]  keycode_export,   //    keycode.export
+		input  wire        reset_reset_n,    //      reset.reset_n
+		output wire        sdram_clk_clk,    //  sdram_clk.clk
+		output wire [12:0] sdram_wire_addr,  // sdram_wire.addr
+		output wire [1:0]  sdram_wire_ba,    //           .ba
+		output wire        sdram_wire_cas_n, //           .cas_n
+		output wire        sdram_wire_cke,   //           .cke
+		output wire        sdram_wire_cs_n,  //           .cs_n
+		inout  wire [15:0] sdram_wire_dq,    //           .dq
+		output wire [1:0]  sdram_wire_dqm,   //           .dqm
+		output wire        sdram_wire_ras_n, //           .ras_n
+		output wire        sdram_wire_we_n,  //           .we_n
+		input  wire        spi0_MISO,        //       spi0.MISO
+		output wire        spi0_MOSI,        //           .MOSI
+		output wire        spi0_SCLK,        //           .SCLK
+		output wire        spi0_SS_n,        //           .SS_n
+		input  wire        usb_gpx_export,   //    usb_gpx.export
+		input  wire        usb_irq_export,   //    usb_irq.export
+		output wire        usb_rst_export    //    usb_rst.export
 	);
 
 	wire         sdram_pll_c0_clk;                                            // sdram_pll:c0 -> [mm_interconnect_0:sdram_pll_c0_clk, rst_controller_001:clk, sdram:clk]
@@ -87,18 +84,6 @@ module crossy_robbers_soc (
 	wire   [1:0] mm_interconnect_0_usb_rst_s1_address;                        // mm_interconnect_0:usb_rst_s1_address -> usb_rst:address
 	wire         mm_interconnect_0_usb_rst_s1_write;                          // mm_interconnect_0:usb_rst_s1_write -> usb_rst:write_n
 	wire  [31:0] mm_interconnect_0_usb_rst_s1_writedata;                      // mm_interconnect_0:usb_rst_s1_writedata -> usb_rst:writedata
-	wire         mm_interconnect_0_hex_digits_pio_s1_chipselect;              // mm_interconnect_0:hex_digits_pio_s1_chipselect -> hex_digits_pio:chipselect
-	wire  [31:0] mm_interconnect_0_hex_digits_pio_s1_readdata;                // hex_digits_pio:readdata -> mm_interconnect_0:hex_digits_pio_s1_readdata
-	wire   [1:0] mm_interconnect_0_hex_digits_pio_s1_address;                 // mm_interconnect_0:hex_digits_pio_s1_address -> hex_digits_pio:address
-	wire         mm_interconnect_0_hex_digits_pio_s1_write;                   // mm_interconnect_0:hex_digits_pio_s1_write -> hex_digits_pio:write_n
-	wire  [31:0] mm_interconnect_0_hex_digits_pio_s1_writedata;               // mm_interconnect_0:hex_digits_pio_s1_writedata -> hex_digits_pio:writedata
-	wire         mm_interconnect_0_leds_pio_s1_chipselect;                    // mm_interconnect_0:leds_pio_s1_chipselect -> leds_pio:chipselect
-	wire  [31:0] mm_interconnect_0_leds_pio_s1_readdata;                      // leds_pio:readdata -> mm_interconnect_0:leds_pio_s1_readdata
-	wire   [1:0] mm_interconnect_0_leds_pio_s1_address;                       // mm_interconnect_0:leds_pio_s1_address -> leds_pio:address
-	wire         mm_interconnect_0_leds_pio_s1_write;                         // mm_interconnect_0:leds_pio_s1_write -> leds_pio:write_n
-	wire  [31:0] mm_interconnect_0_leds_pio_s1_writedata;                     // mm_interconnect_0:leds_pio_s1_writedata -> leds_pio:writedata
-	wire  [31:0] mm_interconnect_0_key_s1_readdata;                           // key:readdata -> mm_interconnect_0:key_s1_readdata
-	wire   [1:0] mm_interconnect_0_key_s1_address;                            // mm_interconnect_0:key_s1_address -> key:address
 	wire         mm_interconnect_0_timer_0_s1_chipselect;                     // mm_interconnect_0:timer_0_s1_chipselect -> timer_0:chipselect
 	wire  [15:0] mm_interconnect_0_timer_0_s1_readdata;                       // timer_0:readdata -> mm_interconnect_0:timer_0_s1_readdata
 	wire   [3:0] mm_interconnect_0_timer_0_s1_address;                        // mm_interconnect_0:timer_0_s1_address -> timer_0:address
@@ -114,21 +99,10 @@ module crossy_robbers_soc (
 	wire         irq_mapper_receiver1_irq;                                    // timer_0:irq -> irq_mapper:receiver1_irq
 	wire         irq_mapper_receiver2_irq;                                    // spi_0:irq -> irq_mapper:receiver2_irq
 	wire  [31:0] nios2_gen2_0_irq_irq;                                        // irq_mapper:sender_irq -> nios2_gen2_0:irq
-	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [hex_digits_pio:reset_n, irq_mapper:reset, jtag_uart_0:rst_n, key:reset_n, keycode:reset_n, leds_pio:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, rst_translator:in_reset, sdram_pll:reset, spi_0:reset_n, sysid_qsys_0:reset_n, timer_0:reset_n, usb_gpx:reset_n, usb_irq:reset_n, usb_rst:reset_n]
+	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [irq_mapper:reset, jtag_uart_0:rst_n, keycode:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, rst_translator:in_reset, sdram_pll:reset, spi_0:reset_n, sysid_qsys_0:reset_n, timer_0:reset_n, usb_gpx:reset_n, usb_irq:reset_n, usb_rst:reset_n]
 	wire         rst_controller_reset_out_reset_req;                          // rst_controller:reset_req -> [nios2_gen2_0:reset_req, rst_translator:reset_req_in]
 	wire         nios2_gen2_0_debug_reset_request_reset;                      // nios2_gen2_0:debug_reset_request -> [rst_controller:reset_in1, rst_controller_001:reset_in1]
 	wire         rst_controller_001_reset_out_reset;                          // rst_controller_001:reset_out -> [mm_interconnect_0:sdram_reset_reset_bridge_in_reset_reset, sdram:reset_n]
-
-	crossy_robbers_soc_hex_digits_pio hex_digits_pio (
-		.clk        (clk_clk),                                        //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),                //               reset.reset_n
-		.address    (mm_interconnect_0_hex_digits_pio_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_hex_digits_pio_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_hex_digits_pio_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_hex_digits_pio_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_hex_digits_pio_s1_readdata),   //                    .readdata
-		.out_port   (hex_digits_export)                               // external_connection.export
-	);
 
 	crossy_robbers_soc_jtag_uart_0 jtag_uart_0 (
 		.clk            (clk_clk),                                                     //               clk.clk
@@ -143,14 +117,6 @@ module crossy_robbers_soc (
 		.av_irq         (irq_mapper_receiver0_irq)                                     //               irq.irq
 	);
 
-	crossy_robbers_soc_key key (
-		.clk      (clk_clk),                           //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),   //               reset.reset_n
-		.address  (mm_interconnect_0_key_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_key_s1_readdata), //                    .readdata
-		.in_port  (key_external_connection_export)     // external_connection.export
-	);
-
 	crossy_robbers_soc_keycode keycode (
 		.clk        (clk_clk),                                 //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),         //               reset.reset_n
@@ -160,17 +126,6 @@ module crossy_robbers_soc (
 		.chipselect (mm_interconnect_0_keycode_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_keycode_s1_readdata),   //                    .readdata
 		.out_port   (keycode_export)                           // external_connection.export
-	);
-
-	crossy_robbers_soc_leds_pio leds_pio (
-		.clk        (clk_clk),                                  //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),          //               reset.reset_n
-		.address    (mm_interconnect_0_leds_pio_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_leds_pio_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_leds_pio_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_leds_pio_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_leds_pio_s1_readdata),   //                    .readdata
-		.out_port   (leds_export)                               // external_connection.export
 	);
 
 	crossy_robbers_soc_nios2_gen2_0 nios2_gen2_0 (
@@ -330,11 +285,6 @@ module crossy_robbers_soc (
 		.nios2_gen2_0_instruction_master_waitrequest    (nios2_gen2_0_instruction_master_waitrequest),                 //                                         .waitrequest
 		.nios2_gen2_0_instruction_master_read           (nios2_gen2_0_instruction_master_read),                        //                                         .read
 		.nios2_gen2_0_instruction_master_readdata       (nios2_gen2_0_instruction_master_readdata),                    //                                         .readdata
-		.hex_digits_pio_s1_address                      (mm_interconnect_0_hex_digits_pio_s1_address),                 //                        hex_digits_pio_s1.address
-		.hex_digits_pio_s1_write                        (mm_interconnect_0_hex_digits_pio_s1_write),                   //                                         .write
-		.hex_digits_pio_s1_readdata                     (mm_interconnect_0_hex_digits_pio_s1_readdata),                //                                         .readdata
-		.hex_digits_pio_s1_writedata                    (mm_interconnect_0_hex_digits_pio_s1_writedata),               //                                         .writedata
-		.hex_digits_pio_s1_chipselect                   (mm_interconnect_0_hex_digits_pio_s1_chipselect),              //                                         .chipselect
 		.jtag_uart_0_avalon_jtag_slave_address          (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_address),     //            jtag_uart_0_avalon_jtag_slave.address
 		.jtag_uart_0_avalon_jtag_slave_write            (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write),       //                                         .write
 		.jtag_uart_0_avalon_jtag_slave_read             (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read),        //                                         .read
@@ -342,18 +292,11 @@ module crossy_robbers_soc (
 		.jtag_uart_0_avalon_jtag_slave_writedata        (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata),   //                                         .writedata
 		.jtag_uart_0_avalon_jtag_slave_waitrequest      (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest), //                                         .waitrequest
 		.jtag_uart_0_avalon_jtag_slave_chipselect       (mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_chipselect),  //                                         .chipselect
-		.key_s1_address                                 (mm_interconnect_0_key_s1_address),                            //                                   key_s1.address
-		.key_s1_readdata                                (mm_interconnect_0_key_s1_readdata),                           //                                         .readdata
 		.keycode_s1_address                             (mm_interconnect_0_keycode_s1_address),                        //                               keycode_s1.address
 		.keycode_s1_write                               (mm_interconnect_0_keycode_s1_write),                          //                                         .write
 		.keycode_s1_readdata                            (mm_interconnect_0_keycode_s1_readdata),                       //                                         .readdata
 		.keycode_s1_writedata                           (mm_interconnect_0_keycode_s1_writedata),                      //                                         .writedata
 		.keycode_s1_chipselect                          (mm_interconnect_0_keycode_s1_chipselect),                     //                                         .chipselect
-		.leds_pio_s1_address                            (mm_interconnect_0_leds_pio_s1_address),                       //                              leds_pio_s1.address
-		.leds_pio_s1_write                              (mm_interconnect_0_leds_pio_s1_write),                         //                                         .write
-		.leds_pio_s1_readdata                           (mm_interconnect_0_leds_pio_s1_readdata),                      //                                         .readdata
-		.leds_pio_s1_writedata                          (mm_interconnect_0_leds_pio_s1_writedata),                     //                                         .writedata
-		.leds_pio_s1_chipselect                         (mm_interconnect_0_leds_pio_s1_chipselect),                    //                                         .chipselect
 		.nios2_gen2_0_debug_mem_slave_address           (mm_interconnect_0_nios2_gen2_0_debug_mem_slave_address),      //             nios2_gen2_0_debug_mem_slave.address
 		.nios2_gen2_0_debug_mem_slave_write             (mm_interconnect_0_nios2_gen2_0_debug_mem_slave_write),        //                                         .write
 		.nios2_gen2_0_debug_mem_slave_read              (mm_interconnect_0_nios2_gen2_0_debug_mem_slave_read),         //                                         .read

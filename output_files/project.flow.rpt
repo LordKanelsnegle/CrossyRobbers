@@ -1,5 +1,5 @@
 Flow report for project
-Fri Nov 26 17:29:11 2021
+Wed Dec 01 21:21:05 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,18 +40,18 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Nov 26 17:29:11 2021       ;
+; Flow Status                        ; Successful - Wed Dec 01 21:21:05 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; project                                     ;
 ; Top-level Entity Name              ; crossy_robbers                              ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 15,022 / 49,760 ( 30 % )                    ;
-;     Total combinational functions  ; 14,398 / 49,760 ( 29 % )                    ;
-;     Dedicated logic registers      ; 2,407 / 49,760 ( 5 % )                      ;
-; Total registers                    ; 2476                                        ;
-; Total pins                         ; 141 / 360 ( 39 % )                          ;
+; Total logic elements               ; 15,107 / 49,760 ( 30 % )                    ;
+;     Total combinational functions  ; 14,505 / 49,760 ( 29 % )                    ;
+;     Dedicated logic registers      ; 2,318 / 49,760 ( 5 % )                      ;
+; Total registers                    ; 2387                                        ;
+; Total pins                         ; 111 / 360 ( 31 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 11,264 / 1,677,312 ( < 1 % )                ;
 ; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                             ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/26/2021 17:24:19 ;
+; Start date & time ; 12/01/2021 21:18:27 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; project             ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------------------------------------+---------------+--------------------+----------------+
 ; Assignment Name                     ; Value                                                                ; Default Value ; Entity Name        ; Section Id     ;
 +-------------------------------------+----------------------------------------------------------------------+---------------+--------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 141812764183009.163796905811920                                      ; --            ; --                 ; --             ;
+; COMPILER_SIGNATURE_ID               ; 242174581247875.163841510728684                                      ; --            ; --                 ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                                    ; --            ; --                 ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                                      ; <None>        ; --                 ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                                 ; --            ; --                 ; eda_simulation ;
@@ -100,7 +100,7 @@ refer to the applicable agreement for further details.
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                         ; --            ; --                 ; --             ;
 ; SLD_FILE                            ; crossy_robbers_soc/synthesis/crossy_robbers_soc.regmap               ; --            ; --                 ; --             ;
 ; SLD_FILE                            ; crossy_robbers_soc/synthesis/crossy_robbers_soc.debuginfo            ; --            ; --                 ; --             ;
-; SLD_INFO                            ; QSYS_NAME crossy_robbers_soc HAS_SOPCINFO 1 GENERATION_ID 1637113429 ; --            ; crossy_robbers_soc ; --             ;
+; SLD_INFO                            ; QSYS_NAME crossy_robbers_soc HAS_SOPCINFO 1 GENERATION_ID 1638410249 ; --            ; crossy_robbers_soc ; --             ;
 ; SOPCINFO_FILE                       ; crossy_robbers_soc/synthesis/../../crossy_robbers_soc.sopcinfo       ; --            ; --                 ; --             ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                                   ; --            ; --                 ; --             ;
 ; TOP_LEVEL_ENTITY                    ; crossy_robbers                                                       ; project       ; --                 ; --             ;
@@ -112,12 +112,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:02:44     ; 1.0                     ; 4997 MB             ; 00:03:02                           ;
-; Fitter               ; 00:01:26     ; 1.7                     ; 6147 MB             ; 00:03:15                           ;
-; Assembler            ; 00:00:06     ; 1.0                     ; 4725 MB             ; 00:00:05                           ;
-; Timing Analyzer      ; 00:00:16     ; 2.9                     ; 5046 MB             ; 00:00:41                           ;
-; EDA Netlist Writer   ; 00:00:07     ; 1.0                     ; 4867 MB             ; 00:00:07                           ;
-; Total                ; 00:04:39     ; --                      ; --                  ; 00:07:10                           ;
+; Analysis & Synthesis ; 00:01:45     ; 1.0                     ; 5060 MB             ; 00:02:11                           ;
+; Fitter               ; 00:00:31     ; 2.0                     ; 6807 MB             ; 00:01:41                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4724 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:07     ; 4.0                     ; 5164 MB             ; 00:00:21                           ;
+; EDA Netlist Writer   ; 00:00:04     ; 1.0                     ; 4868 MB             ; 00:00:03                           ;
+; Total                ; 00:02:30     ; --                      ; --                  ; 00:04:19                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -126,11 +126,11 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-9GT9KAN  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-9GT9KAN  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-9GT9KAN  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-9GT9KAN  ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; DESKTOP-9GT9KAN  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; DESKTOP-ETACI0V  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-ETACI0V  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-ETACI0V  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-ETACI0V  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; DESKTOP-ETACI0V  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 

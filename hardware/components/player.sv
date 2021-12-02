@@ -1,32 +1,15 @@
-/*
+
 //-------------------------------------------------------------------------
 
 
 module player (
-    input frame_clk, inGame, isPlayerOne,
-    input [7:0] keycode,
-	 output [] PlayerAnim,
-	 output [7:0] PlayerScore,
-    output [9:0] PlayerX, PlayerY
+    input logic FrameClk, SpawnEnable, PlayerOne,
+    input logic [7:0] Keycode,
+    output logic [9:0] PlayerX, PlayerY,
+	 output logic [23:0] PlayerPixel
 );
-    
-//=======================================================
-//  FSM LOGIC
-//=======================================================
-	 
-	 enum logic [1:0] { Dead, Idle, Walk } curr_state, next_state; // Internal state logic
-		
-    always_ff @ (posedge Clk)
-    begin
-        if (Reset) 
-            curr_state <= Menu;
-        else 
-            curr_state <= Next_state;
-    end
-	 
-//=======================================================
-//  MOVEMENT LOGIC
-//=======================================================
+
+    /*enum logic [1:0] { Idle, Walk, Death } animation;
 	 
     logic [9:0] Player_X_Pos, Player_X_Motion, Player_Y_Pos, Player_Y_Motion;
 	 
@@ -92,6 +75,6 @@ module player (
     end
        
     assign PlayerX = Player_X_Pos;
-    assign PlayerY = Player_Y_Pos;
+    assign PlayerY = Player_Y_Pos;*/
 
-endmodule*/
+endmodule

@@ -28,29 +28,9 @@ module color_mapper (
 	 logic [23:0] palette_data;
 
     // Module instantiation
-	 map_rom map (
-	     //INPUTS
-	     .addr(map_addr),      // Address of desired tile
-		  
-		  //OUTPUTS
-		  .data(map_data)       // Data of desired tile
-	 );
-	 
-	 tile_rom tiles (
-	     //INPUTS
-	     .addr(tile_addr),     // Address of desired tile
-		  
-		  //OUTPUTS
-		  .data(tile_data)      // Data of desired tile
-    );
-	 
-	 palette_rom palette (
-	     //INPUTS
-	     .addr(palette_addr),  // Address of desired tile
-		  
-		  //OUTPUTS
-		  .data(palette_data)   // Data of desired tile
-	 );
+	 map_rom     map     (.addr(map_addr),     .data(map_data)    ); //used for finding the tile and palette indices of a given tile
+	 tile_rom    tiles   (.addr(tile_addr),    .data(tile_data)   ); //used for getting the bitmap of a given tile
+	 palette_rom palette (.addr(palette_addr), .data(palette_data)); //used for getting the colors corresponding to a given tile
 	 
 	 always_comb
 	 begin:RGB_Calculations

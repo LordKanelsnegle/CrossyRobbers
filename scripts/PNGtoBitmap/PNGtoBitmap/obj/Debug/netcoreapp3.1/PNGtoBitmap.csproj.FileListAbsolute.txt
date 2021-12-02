@@ -17,3 +17,27 @@ C:\Users\selja\Desktop\ECE385\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\
 C:\Users\selja\Desktop\ECE385\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.dll
 C:\Users\selja\Desktop\ECE385\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.pdb
 C:\Users\selja\Desktop\ECE385\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.genruntimeconfig.cache
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.exe
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.deps.json
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.runtimeconfig.json
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.runtimeconfig.dev.json
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.pdb
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.csproj.AssemblyReference.cache
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.AssemblyInfoInputs.cache
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.AssemblyInfo.cs
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.csproj.CoreCompileInputs.cache
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.csproj.CopyComplete
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.dll
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.pdb
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\obj\Debug\netcoreapp3.1\PNGtoBitmap.genruntimeconfig.cache
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\map.png
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\p1win.png
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\p2win.png
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\rematch.png
+C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\title.png

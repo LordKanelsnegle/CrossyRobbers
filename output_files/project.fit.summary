@@ -1,15 +1,15 @@
-Fitter Status : Successful - Fri Nov 26 17:28:34 2021
+Fitter Status : Successful - Wed Dec 01 21:20:47 2021
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : project
 Top-level Entity Name : crossy_robbers
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 15,022 / 49,760 ( 30 % )
-    Total combinational functions : 14,398 / 49,760 ( 29 % )
-    Dedicated logic registers : 2,407 / 49,760 ( 5 % )
-Total registers : 2476
-Total pins : 141 / 360 ( 39 % )
+Total logic elements : 15,107 / 49,760 ( 30 % )
+    Total combinational functions : 14,505 / 49,760 ( 29 % )
+    Dedicated logic registers : 2,318 / 49,760 ( 5 % )
+Total registers : 2387
+Total pins : 111 / 360 ( 31 % )
 Total virtual pins : 0
 Total memory bits : 11,264 / 1,677,312 ( < 1 % )
 Embedded Multiplier 9-bit elements : 0 / 288 ( 0 % )

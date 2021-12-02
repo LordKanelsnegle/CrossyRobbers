@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "f7t4PhJrnTeZDdBcbGwOPxuTLiKWAi8kAOyk3+t0ADDBvQxRA2vtZs5WoFyM3hnxGy7qSWPRjdkLIoVKYf2glw==",
+  "dgSpecHash": "NvemgUVCOLr1BqhStAS56ecSRijJUeyJKsVkwWq1X57sp1dpA1Cy6IGCz0u8e64oh1tfKqOCtgX7+70wyAbTvw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\selja\\Desktop\\ECE385\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
+  "projectFilePath": "C:\\Users\\Lord Kanelsnegle\\Desktop\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\selja\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\selja\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+    "C:\\Users\\Lord Kanelsnegle\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Lord Kanelsnegle\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
