@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'crossy_robbers_soc'
  * SOPC Builder design path: ../../crossy_robbers_soc.sopcinfo
  *
- * Generated: Tue Nov 16 21:50:25 CST 2021
+ * Generated: Thu Dec 02 10:56:57 CST 2021
  */
 
 /*
@@ -159,19 +159,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x80011d8
+#define ALT_STDERR_BASE 0x8001178
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x80011d8
+#define ALT_STDIN_BASE 0x8001178
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x80011d8
+#define ALT_STDOUT_BASE 0x8001178
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -191,39 +191,12 @@
 
 
 /*
- * hex_digits_pio configuration
- *
- */
-
-#define ALT_MODULE_CLASS_hex_digits_pio altera_avalon_pio
-#define HEX_DIGITS_PIO_BASE 0x8001160
-#define HEX_DIGITS_PIO_BIT_CLEARING_EDGE_REGISTER 0
-#define HEX_DIGITS_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define HEX_DIGITS_PIO_CAPTURE 0
-#define HEX_DIGITS_PIO_DATA_WIDTH 16
-#define HEX_DIGITS_PIO_DO_TEST_BENCH_WIRING 0
-#define HEX_DIGITS_PIO_DRIVEN_SIM_VALUE 0
-#define HEX_DIGITS_PIO_EDGE_TYPE "NONE"
-#define HEX_DIGITS_PIO_FREQ 50000000
-#define HEX_DIGITS_PIO_HAS_IN 0
-#define HEX_DIGITS_PIO_HAS_OUT 1
-#define HEX_DIGITS_PIO_HAS_TRI 0
-#define HEX_DIGITS_PIO_IRQ -1
-#define HEX_DIGITS_PIO_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define HEX_DIGITS_PIO_IRQ_TYPE "NONE"
-#define HEX_DIGITS_PIO_NAME "/dev/hex_digits_pio"
-#define HEX_DIGITS_PIO_RESET_VALUE 0
-#define HEX_DIGITS_PIO_SPAN 16
-#define HEX_DIGITS_PIO_TYPE "altera_avalon_pio"
-
-
-/*
  * jtag_uart_0 configuration
  *
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x80011d8
+#define JTAG_UART_0_BASE 0x8001178
 #define JTAG_UART_0_IRQ 1
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -236,39 +209,12 @@
 
 
 /*
- * key configuration
- *
- */
-
-#define ALT_MODULE_CLASS_key altera_avalon_pio
-#define KEY_BASE 0x8001140
-#define KEY_BIT_CLEARING_EDGE_REGISTER 0
-#define KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define KEY_CAPTURE 0
-#define KEY_DATA_WIDTH 2
-#define KEY_DO_TEST_BENCH_WIRING 0
-#define KEY_DRIVEN_SIM_VALUE 0
-#define KEY_EDGE_TYPE "NONE"
-#define KEY_FREQ 50000000
-#define KEY_HAS_IN 1
-#define KEY_HAS_OUT 0
-#define KEY_HAS_TRI 0
-#define KEY_IRQ -1
-#define KEY_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define KEY_IRQ_TYPE "NONE"
-#define KEY_NAME "/dev/key"
-#define KEY_RESET_VALUE 0
-#define KEY_SPAN 16
-#define KEY_TYPE "altera_avalon_pio"
-
-
-/*
  * keycode configuration
  *
  */
 
 #define ALT_MODULE_CLASS_keycode altera_avalon_pio
-#define KEYCODE_BASE 0x80011a0
+#define KEYCODE_BASE 0x8001140
 #define KEYCODE_BIT_CLEARING_EDGE_REGISTER 0
 #define KEYCODE_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEYCODE_CAPTURE 0
@@ -287,33 +233,6 @@
 #define KEYCODE_RESET_VALUE 0
 #define KEYCODE_SPAN 16
 #define KEYCODE_TYPE "altera_avalon_pio"
-
-
-/*
- * leds_pio configuration
- *
- */
-
-#define ALT_MODULE_CLASS_leds_pio altera_avalon_pio
-#define LEDS_PIO_BASE 0x8001150
-#define LEDS_PIO_BIT_CLEARING_EDGE_REGISTER 0
-#define LEDS_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define LEDS_PIO_CAPTURE 0
-#define LEDS_PIO_DATA_WIDTH 14
-#define LEDS_PIO_DO_TEST_BENCH_WIRING 0
-#define LEDS_PIO_DRIVEN_SIM_VALUE 0
-#define LEDS_PIO_EDGE_TYPE "NONE"
-#define LEDS_PIO_FREQ 50000000
-#define LEDS_PIO_HAS_IN 0
-#define LEDS_PIO_HAS_OUT 1
-#define LEDS_PIO_HAS_TRI 0
-#define LEDS_PIO_IRQ -1
-#define LEDS_PIO_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define LEDS_PIO_IRQ_TYPE "NONE"
-#define LEDS_PIO_NAME "/dev/leds_pio"
-#define LEDS_PIO_RESET_VALUE 0
-#define LEDS_PIO_SPAN 16
-#define LEDS_PIO_TYPE "altera_avalon_pio"
 
 
 /*
@@ -361,7 +280,7 @@
  */
 
 #define ALT_MODULE_CLASS_sdram_pll altpll
-#define SDRAM_PLL_BASE 0x80011b0
+#define SDRAM_PLL_BASE 0x8001150
 #define SDRAM_PLL_IRQ -1
 #define SDRAM_PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SDRAM_PLL_NAME "/dev/sdram_pll"
@@ -406,13 +325,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x80011d0
+#define SYSID_QSYS_0_BASE 0x8001170
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1637113429
+#define SYSID_QSYS_0_TIMESTAMP 1638410249
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -448,7 +367,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_gpx altera_avalon_pio
-#define USB_GPX_BASE 0x8001180
+#define USB_GPX_BASE 0x8001120
 #define USB_GPX_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_GPX_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_GPX_CAPTURE 0
@@ -475,7 +394,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_irq altera_avalon_pio
-#define USB_IRQ_BASE 0x8001190
+#define USB_IRQ_BASE 0x8001130
 #define USB_IRQ_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_IRQ_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_IRQ_CAPTURE 0
@@ -502,7 +421,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_rst altera_avalon_pio
-#define USB_RST_BASE 0x8001170
+#define USB_RST_BASE 0x8001110
 #define USB_RST_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_RST_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_RST_CAPTURE 0

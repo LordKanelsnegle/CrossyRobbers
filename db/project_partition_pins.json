@@ -276,11 +276,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "MAX10_CLK1_50",
+					"name" : "RESET",
 					"strict" : false
 				},
 				{
-					"name" : "RESET",
+					"name" : "MAX10_CLK1_50",
 					"strict" : false
 				},
 				{

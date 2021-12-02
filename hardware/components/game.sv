@@ -26,12 +26,13 @@ module game (
         if (Reset)
             curr_state <= Menu;
         else
+		  begin
             curr_state <= next_state;
-				
-		  if (curr_state == Game)
-		      timer <= timer + 1;
-		  else
-		      timer <= 15'b0;
+				if (curr_state == Game)
+		          timer <= timer + 1;
+				else
+				    timer <= 15'b0;
+		  end
     end
    
     always_comb
@@ -48,8 +49,10 @@ module game (
 		              next_state = Game;
 				end
 		      Game:
+				begin
 					 if (timer == round_duration)
 						  next_state = End;
+				end
 		      default : next_state = Menu;
 		  endcase
 		

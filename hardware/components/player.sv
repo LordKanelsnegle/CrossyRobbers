@@ -22,10 +22,10 @@ module player (
 	 
 	 // Conditional parameters
 	 parameter [9:0] SpawnX = isPlayerOne ? 220 : 420;     // Horizontal spawnpoint
-	 parameter [7:0] Left   = isPlayerOne ? 8'h04 : 8'h00; // Left keycode
-	 parameter [7:0] Right  = isPlayerOne ? 8'h07 : 8'h00; // Right keycode
-	 parameter [7:0] Up     = isPlayerOne ? 8'h1A : 8'h00; // Up keycode
-	 parameter [7:0] Down   = isPlayerOne ? 8'h16 : 8'h00; // Down keycode
+	 parameter [7:0] Left   = isPlayerOne ? 8'h04 : 8'h50; // Left keycode
+	 parameter [7:0] Right  = isPlayerOne ? 8'h07 : 8'h4f; // Right keycode
+	 parameter [7:0] Up     = isPlayerOne ? 8'h1A : 8'h52; // Up keycode
+	 parameter [7:0] Down   = isPlayerOne ? 8'h16 : 8'h51; // Down keycode
    
     always_ff @ (posedge frame_clk)
     begin

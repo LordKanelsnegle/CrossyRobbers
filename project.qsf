@@ -266,7 +266,6 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name QIP_FILE crossy_robbers_soc/synthesis/crossy_robbers_soc.qip
-set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/timer.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/text.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/money.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/palette_rom.sv

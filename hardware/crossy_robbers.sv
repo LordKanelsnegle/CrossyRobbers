@@ -143,7 +143,7 @@ module crossy_robbers (
 	 vga_controller vgacontroller (
 	     //INPUTS
 	     .Clk(MAX10_CLK1_50),     // 50 MHz clock
-        .Reset(Reset_h),         // reset signal
+        .Reset(1'b0),            // reset signal - temporarily disabling this as there seems to be a several second delay caused by resetting?
 		  
 		  //OUTPUTS
         .hs(VGA_HS),             // Horizontal sync pulse.  Active low.
