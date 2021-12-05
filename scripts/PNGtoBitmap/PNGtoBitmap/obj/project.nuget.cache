@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NvemgUVCOLr1BqhStAS56ecSRijJUeyJKsVkwWq1X57sp1dpA1Cy6IGCz0u8e64oh1tfKqOCtgX7+70wyAbTvw==",
+  "dgSpecHash": "VwJvM9Iby6vtjy8KIvVg0m4wO1MlKAE9V/R5m0aBI6YWnqOsq0vPQD1yqYCc+E8INfq31xqOAApXSuPKs4SnBw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lord Kanelsnegle\\Desktop\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
+  "projectFilePath": "C:\\intelFPGA_lite\\18.1\\projects\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lord Kanelsnegle\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Lord Kanelsnegle\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"

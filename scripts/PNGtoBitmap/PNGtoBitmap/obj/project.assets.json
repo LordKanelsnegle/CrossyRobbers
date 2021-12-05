@@ -128,11 +128,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lord Kanelsnegle\\Desktop\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
+      "projectUniqueName": "C:\\intelFPGA_lite\\18.1\\projects\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
       "projectName": "PNGtoBitmap",
-      "projectPath": "C:\\Users\\Lord Kanelsnegle\\Desktop\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
+      "projectPath": "C:\\intelFPGA_lite\\18.1\\projects\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\PNGtoBitmap.csproj",
       "packagesPath": "C:\\Users\\Lord Kanelsnegle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lord Kanelsnegle\\Desktop\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\obj\\",
+      "outputPath": "C:\\intelFPGA_lite\\18.1\\projects\\CrossyRobbers\\scripts\\PNGtoBitmap\\PNGtoBitmap\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Lord Kanelsnegle\\AppData\\Roaming\\NuGet\\NuGet.Config",

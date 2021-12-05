@@ -6,7 +6,7 @@ module player (
     input logic FrameClk, SpawnEnable, PlayerOne,
     input logic [7:0] Keycode,
     output logic [9:0] PlayerX, PlayerY,
-	 output logic [23:0] PlayerPixel
+	 output logic [5:0] PlayerPixel
 );
 
     /*enum logic [1:0] { Idle, Walk, Death } animation;

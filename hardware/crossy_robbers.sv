@@ -64,12 +64,10 @@ module crossy_robbers (
 	logic [7:0] red, green, blue;
 	logic [7:0] keycode;
 	
-   logic Reset_h, Continue_h, blank, sync, pixel_clk;
-	logic [9:0] draw_x, draw_y;
-	
-	logic spawnEn;
-	logic [9:0]  p1_x, p1_y, p2_x, p2_y;
-	logic [23:0] p1_pixel, p2_pixel;
+   logic Reset_h, Continue_h, blank, sync, pixel_clk, carTopHalf;
+	logic [3:0] rnd;
+	logic [5:0] textPixel, p1Pixel, p2Pixel, MoneyPixel, carPixel;
+	logic [9:0] drawX, drawY;
 
 //=======================================================
 //  Structural coding
@@ -151,55 +149,42 @@ module crossy_robbers (
 		  .pixel_clk(pixel_clk),   // 25 MHz pixel clock output.
 		  .blank(blank),           // Blanking interval indicator.  Active low.
 		  .sync(sync),             // Composite Sync signal.  Active low.  We don't use it in this lab, but the video DAC on the DE2 board requires an input for it.
-		  .DrawX(draw_x),          // horizontal coordinate
-		  .DrawY(draw_y)           // vertical coordinate
+		  .DrawX(drawX),           // horizontal coordinate
+		  .DrawY(drawY)            // vertical coordinate
     );
+	 
+	 random r0 (.ClkA(MAX10_CLK1_50), .ClkB(pixel_clk), .ClkC(VGA_VS), .ClkD(VGA_HS), .Out(rnd)); //for use in money.sv, lane.sv, and car.sv
 	 
 	 game g0 (
 	     //INPUTS
 	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
 		  .Reset(Reset_h),
 		  .Continue(Continue_h),
+		  .Keycode(keycode),
+		  .DrawX(drawX),
+		  .DrawY(drawY),
 					
         //OUTPUTS
-        .SpawnEnable(spawnEn),
+		  .TextPixel(textPixel),
+		  .P1Pixel(p1Pixel),
+		  .P2Pixel(p2Pixel),
+		  .MoneyPixel(MoneyPixel),
+		  .CarPixel(carPixel),
+		  .CarTopHalf(carTopHalf),
 		  .LED(LED)
 	 );
-	 
-	 player p1 (
-	     //INPUTS
-	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
-		  .SpawnEnable(spawnEn),
-		  .Keycode(keycode),
-		  .PlayerOne(1'b1),
-					
-        //OUTPUTS
-        .PlayerX(p1_x),
-		  .PlayerY(p1_y),
-		  .PlayerPixel(p1_pixel)
-    );
-	 player p2 (
-	     //INPUTS
-	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
-		  .SpawnEnable(spawnEn),
-		  .Keycode(keycode),
-		  .PlayerOne(1'b0),
-					
-        //OUTPUTS
-        .PlayerX(p2_x),
-		  .PlayerY(p2_y),
-		  .PlayerPixel(p2_pixel)
-    );
 	 
 	 color_mapper colormapper (
 	     //INPUTS
 		  .Blank(blank),
-		  .DrawX(draw_x), 
-		  .DrawY(draw_y), 
-	     .P1X(p1_x),
-		  .P1Y(p1_y),
-	     .P2X(p2_x),
-		  .P2Y(p2_y),
+		  .DrawX(drawX),
+		  .DrawY(drawY),
+		  .TextPixel(textPixel),
+		  .P1Pixel(p1Pixel),
+		  .P2Pixel(p2Pixel),
+		  .MoneyPixel(MoneyPixel),
+		  .CarPixel(carPixel),
+		  .CarTopHalf(carTopHalf),
 		  
         //OUTPUTS
 		  .Red(red), 

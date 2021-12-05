@@ -1,95 +1,56 @@
-//-------------------------------------------------------------------------
-//    Ball.sv                                                            --
-//    Viral Mehta                                                        --
-//    Spring 2005                                                        --
-//                                                                       --
-//    Modified by Stephen Kempf 03-01-2006                               --
-//                              03-12-2007                               --
-//    Translated by Joe Meng    07-07-2013                               --
-//    Fall 2014 Distribution                                             --
-//                                                                       --
-//    For use with ECE 298 Lab 7                                         --
-//    UIUC ECE Department                                                --
-//-------------------------------------------------------------------------
-/*
+module car #(parameter [9:0] SpawnX = 0) (
+    input  logic FrameClk, SpawnEnable, FaceLeft,
+	 input  logic [1:0] Type,
+	 input  logic [2:0] Speed,
+    input  logic [9:0] DrawX, DrawY, SpawnY,
+    output logic CarTopHalf,
+	 output logic [5:0] CarPixel
+);
 
-module  ball ( input Reset, frame_clk,
-					input [7:0] keycode,
-               output [9:0]  BallX, BallY, BallS );
-    
-    logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
-	 
-    parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
-    parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
-    parameter [9:0] Ball_X_Min=0;       // Leftmost point on the X axis
-    parameter [9:0] Ball_X_Max=639;     // Rightmost point on the X axis
-    parameter [9:0] Ball_Y_Min=0;       // Topmost point on the Y axis
-    parameter [9:0] Ball_Y_Max=479;     // Bottommost point on the Y axis
-    parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
-    parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
+    // Declare local logic
+	 parameter [2:0] framesPerSprite = 5;  //roughly equivalent to 12fps (60/5 = 12)
+	 parameter [9:0] carWidth        = 48;
+	 parameter [9:0] carHeight       = 26;
+	 //logic [1:0] carType   = 2'b11; //initialize car type to something not possible (only 3 cars)
+	 logic [1:0] animFrame = 2'b0;
+	 logic [2:0] counter   = 3'b0;
+	 logic [9:0] carX      = SpawnX;
 
-    assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
-   
-    always_ff @ (posedge Reset or posedge frame_clk )
-    begin: Move_Ball
-        if (Reset)  // Asynchronous Reset
-        begin 
-            Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
-				Ball_X_Motion <= 10'd0; //Ball_X_Step;
-				Ball_Y_Pos <= Ball_Y_Center;
-				Ball_X_Pos <= Ball_X_Center;
+    always_ff @ (FrameClk)
+    begin
+        if (SpawnEnable)
+        begin
+		      if (counter == framesPerSprite)
+				begin
+				    counter   <= 3'b0;
+					 animFrame <= animFrame + 1;
+				end
+				else
+				    counter <= counter + 1;
+				
+            //car movement logic goes here
+				//.......
         end
-           
-        else 
-        begin 
-				 if ( (Ball_Y_Pos + Ball_Size) >= Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
-					  Ball_Y_Motion <= (~(Ball_Y_Step) + 1'b1);  // 2's complement.
-					  
-				 else if ( (Ball_Y_Pos - Ball_Size) <= Ball_Y_Min )  // Ball is at the top edge, BOUNCE!
-					  Ball_Y_Motion <= Ball_Y_Step;
-					  
-				  else if ( (Ball_X_Pos + Ball_Size) >= Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
-					  Ball_X_Motion <= (~(Ball_X_Step) + 1'b1);  // 2's complement.
-					  
-				 else if ( (Ball_X_Pos - Ball_Size) <= Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
-					  Ball_X_Motion <= Ball_X_Step;
-					  
-				 else begin
-					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
-						 case (keycode)
-							8'h04 : begin //A
-										Ball_X_Motion <= (~(Ball_X_Step) + 1'b1);  // 2's complement.
-										Ball_Y_Motion <= 0;
-									  end
-									  
-							8'h07 : begin //D
-										Ball_X_Motion <= Ball_X_Step;
-										Ball_Y_Motion <= 0;
-									  end
-									  
-							8'h16 : begin //S
-									  Ball_Y_Motion <= Ball_Y_Step;
-									  Ball_X_Motion <= 0;
-									 end
-									  
-							8'h1A : begin //W
-									  Ball_Y_Motion <= (~(Ball_Y_Step) + 1'b1);  // 2's complement.
-									  Ball_X_Motion <= 0;
-									 end	  
-							default: ;
-						endcase
-				 end
-				 
-				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
-				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
-		end  
+		  else
+		  begin
+		      counter <= 3'b0;
+				carX    <= SpawnX;
+		  end
     end
-       
-    assign BallX = Ball_X_Pos;
-   
-    assign BallY = Ball_Y_Pos;
-   
-    assign BallS = Ball_Size;
-    
+	 
+	 always_comb
+	 begin
+	     if (SpawnEnable && carX <= DrawX && DrawX < carX + carWidth && SpawnY <= DrawY && DrawY < SpawnY + carHeight)
+		  begin
+		      //car_addr = ;
+	         CarTopHalf = (SpawnY <= DrawY && DrawY < SpawnY + (carHeight - 16));
+	         CarPixel   = 6'b0;//car_data[];
+		  end
+		  else
+		  begin
+	         CarTopHalf = 1'b0;
+	         CarPixel   = 6'b0;
+		  end
+	 end
 
-endmodule*/
+endmodule

@@ -1,10 +1,10 @@
 
 /*module text (
-    parameter topside         = 1'b1; //0 to start from 639, 1 to start from -tileHeight
+    parameter Topside         = 1'b1; //0 to start from 639, 1 to start from -tileHeight
 	 parameter [1:0] TextIndex = 2'b0; //0 for title, 1 for p1win, 2 for p2win, 3 for rematch
 	 parameter [9:0] EndY      = 9'b0; //the y position the text should settle at (x is constant)
 	 // Input and Outputs
-    input logic frame_clk, Active,
+    input logic FrameClk, Active,
 	 output logic [9:0] TextY
 );
 	 

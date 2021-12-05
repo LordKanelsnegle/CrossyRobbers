@@ -1,4 +1,5 @@
 vendor_name = ModelSim
+source_file = 1, C:/intelFPGA_lite/18.1/projects/CrossyRobbers/hardware/random.sv
 source_file = 1, C:/intelFPGA_lite/18.1/projects/CrossyRobbers/crossy_robbers_soc/synthesis/crossy_robbers_soc.qip
 source_file = 1, C:/intelFPGA_lite/18.1/projects/CrossyRobbers/crossy_robbers_soc/synthesis/crossy_robbers_soc.v
 source_file = 1, C:/intelFPGA_lite/18.1/projects/CrossyRobbers/crossy_robbers_soc/synthesis/submodules/altera_reset_controller.v

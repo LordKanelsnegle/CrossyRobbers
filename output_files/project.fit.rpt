@@ -1,5 +1,5 @@
 Fitter report for project
-Thu Dec 02 11:41:57 2021
+Sun Dec 05 14:18:16 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -72,7 +72,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Thu Dec 02 11:41:57 2021       ;
+; Fitter Status                      ; Successful - Sun Dec 05 14:18:16 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; project                                     ;
 ; Top-level Entity Name              ; crossy_robbers                              ;
@@ -158,19 +158,19 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 24          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 2.01        ;
+; Average used               ; 1.97        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   7.1%      ;
-;     Processor 3            ;   7.0%      ;
-;     Processor 4            ;   6.9%      ;
-;     Processor 5            ;   6.8%      ;
-;     Processor 6            ;   6.8%      ;
-;     Processor 7            ;   6.8%      ;
-;     Processor 8            ;   6.8%      ;
-;     Processors 9-16        ;   6.7%      ;
+;     Processor 2            ;   6.7%      ;
+;     Processor 3            ;   6.6%      ;
+;     Processor 4            ;   6.6%      ;
+;     Processor 5            ;   6.5%      ;
+;     Processor 6            ;   6.5%      ;
+;     Processor 7            ;   6.4%      ;
+;     Processor 8            ;   6.4%      ;
+;     Processors 9-16        ;   6.4%      ;
 +----------------------------+-------------+
 
 
@@ -2532,7 +2532,7 @@ Info (176235): Finished register packing
     Extra Info (176218): Packed 53 registers into blocks of type I/O Output Buffer
     Extra Info (176220): Created 34 register duplicates
 Warning (15064): PLL "crossy_robbers_soc:cr0|crossy_robbers_soc_sdram_pll:sdram_pll|crossy_robbers_soc_sdram_pll_altpll_vg92:sd1|pll7" output port clk[1] feeds output pin "DRAM_CLK~output" via non-dedicated routing -- jitter performance depends on switching rate of other design elements. Use PLL dedicated clock outputs to ensure jitter performance File: C:/intelFPGA_lite/18.1/projects/CrossyRobbers/crossy_robbers_soc/synthesis/submodules/crossy_robbers_soc_sdram_pll.v Line: 150
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:06
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:07
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
@@ -2546,7 +2546,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:04
-Info (11888): Total time spent on timing analysis during the Fitter is 0.88 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.86 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -2573,10 +2573,10 @@ Warning (169064): Following 17 pins have no output enable or a GND or VCC output
     Info (169065): Pin ARDUINO_RESET_N has a permanently enabled output enable File: C:/intelFPGA_lite/18.1/projects/CrossyRobbers/hardware/crossy_robbers.sv Line: 57
 Info (144001): Generated suppressed messages file C:/intelFPGA_lite/18.1/projects/CrossyRobbers/output_files/project.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 18 warnings
-    Info: Peak virtual memory: 6815 megabytes
-    Info: Processing ended: Thu Dec 02 11:41:59 2021
-    Info: Elapsed time: 00:00:33
-    Info: Total CPU time (on all processors): 00:01:37
+    Info: Peak virtual memory: 6814 megabytes
+    Info: Processing ended: Sun Dec 05 14:18:18 2021
+    Info: Elapsed time: 00:00:34
+    Info: Total CPU time (on all processors): 00:01:36
 
 
 +----------------------------+
