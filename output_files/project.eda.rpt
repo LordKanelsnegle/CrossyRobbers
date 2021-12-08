@@ -1,5 +1,5 @@
 EDA Netlist Writer report for project
-Sun Dec 05 14:18:33 2021
+Wed Dec 08 14:10:38 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -36,7 +36,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Sun Dec 05 14:18:33 2021 ;
+; EDA Netlist Writer Status ; Successful - Wed Dec 08 14:10:38 2021 ;
 ; Revision Name             ; project                               ;
 ; Top-level Entity Name     ; crossy_robbers                        ;
 ; Family                    ; MAX 10                                ;
@@ -81,15 +81,15 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Dec 05 14:18:30 2021
+    Info: Processing started: Wed Dec 08 14:10:34 2021
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off project -c project
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Warning (10905): Generated the EDA functional simulation netlist because it is the only supported netlist type for this device.
 Info (204019): Generated file project.svo in folder "C:/intelFPGA_lite/18.1/projects/CrossyRobbers/simulation/modelsim/" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4868 megabytes
-    Info: Processing ended: Sun Dec 05 14:18:34 2021
+    Info: Peak virtual memory: 4929 megabytes
+    Info: Processing ended: Wed Dec 08 14:10:38 2021
     Info: Elapsed time: 00:00:04
-    Info: Total CPU time (on all processors): 00:00:03
+    Info: Total CPU time (on all processors): 00:00:05
 
 

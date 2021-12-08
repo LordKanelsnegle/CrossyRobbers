@@ -12,32 +12,29 @@
 
 
 module color_mapper (
-    input  logic        Blank, CarTopHalf,
-    input  logic [9:0]  DrawX, DrawY,
-	 input  logic [5:0]  TextPixel, P1Pixel, P2Pixel, MoneyPixel, CarPixel, //all of these should be palette indices, not 32 bit ARGB values.
-	 output logic [7:0]  Red, Green, Blue
+    input  logic       Blank, CarPriority,
+	 input  logic [1:0] Map,
+    input  logic [9:0] DrawX, DrawY,
+	 input  logic [5:0] TextPixel, P1Pixel, P2Pixel, MoneyPixel, CarPixel, //all of these should be palette indices, not 32 bit ARGB values.
+	 output logic [7:0] Red, Green, Blue
 );
 
     // Declare local variables
-	 parameter bit [9:0] lampX    [6] = '{6,118,230,374,486,598};
-	 parameter bit       lampY    [2] = '{98,258};
-	 parameter bit [9:0] trafficX [2] = '{38,630};
-	 parameter bit       trafficY [2] = '{98,258};
+	 localparam bit [9:0] lampX    [6] = '{6,118,230,374,486,598};
+	 localparam bit       lampY    [2] = '{98,258};
+	 localparam bit [9:0] trafficX [2] = '{38,630};
+	 localparam bit       trafficY [2] = '{98,258};
 	 
 	 logic mapPixel, playerPixel;
-	 logic [5:0]  tile_x, tile_y;
-	 logic [10:0] map_addr;
-	 logic [55:0] map_data;
-	 logic [11:0] tile_addr;
-	 logic [47:0] tile_data;
-	 logic [2:0]  tile_color;
+	 logic [5:0]  tileX, tileY;
+	 logic [10:0] tileIdx;
+	 logic [5:0]  map_data;
 	 logic [5:0]  palette_addr;
 	 logic [23:0] palette_data;
 
     // Module instantiation
-	 map_rom     map     (.addr(map_addr),     .data(map_data)    ); //used for finding the tile and palette indices of a given tile
-	 tile_rom    tiles   (.addr(tile_addr),    .data(tile_data)   ); //used for getting the bitmap of a given tile
-	 palette_rom palette (.addr(palette_addr), .data(palette_data)); //used for getting the colors corresponding to a given tile
+	 palette_rom palette (.Color(palette_addr), .Data(palette_data)); //used for getting the colors corresponding to a given index
+	 map_rom     map     (.Tile(tileIdx), .PixelX(DrawX[3:0]), .PixelY(DrawY[3:0]), .Data(map_data)); //used for retrieving the palette addr for a given map tile
 	 
 	 always_comb
 	 begin:RGB_Calculations
@@ -45,14 +42,11 @@ module color_mapper (
 	     // Calculate map pixel for the current x,y coordinate
 		  
 	     //convert x,y to tilex,tiley by shifting right 4 times (same as dividing by 2^4=16px)
-	     tile_x     = DrawX >> 4;
-		  tile_y     = DrawY >> 4;
-		  //convert tilex,tiley to 1d index (map_addr)
-		  map_addr   = 40 * tile_y + tile_x;               //multiply tiley by 40 because 40 tiles per row
-        tile_addr  = 16 * map_data[7:0] + DrawY[3:0];    //multiply tile_code by 16 and add y mod 16 to get tile_addr
-		  //get tile pixel color by inverting the desired pixel then multiplying by 3 since we use 3 bits per pixel
-		  tile_color = tile_data[3*(15-DrawX[3:0]) +: 3]; //bit-slicing (+:) operator to select 3 bits starting from position of desired 3 bits
-		  mapPixel   = !(TextPixel || P1Pixel || P2Pixel || MoneyPixel || CarPixel);
+	     tileX     = DrawX >> 4;
+		  tileY     = DrawY >> 4;
+		  //convert tilex,tiley to 1d index multiplied by map number
+		  tileIdx   = (Map + 1) * (40 * tileY + tileX); //multiply tileY by 40 because 40 tiles per row
+		  mapPixel  = !(TextPixel || P1Pixel || P2Pixel || MoneyPixel || CarPixel);
 		  
 		  
 		  // Calculate whether the current x,y coordinate corresponds to a lamp or traffic light
@@ -90,11 +84,11 @@ module color_mapper (
 		  end
 		  else if (mapPixel)
 		  begin:LightOrMap
-		      palette_addr = map_data[6*tile_color+8 +: 6];   //multiply color by 6 because we use 6 bits per color, then bit-slice to get correct bits
+		      palette_addr = map_data;
 		  end
 		  else if (playerPixel || CarPixel)
 		  begin:PlayerOrCar
-            if (CarPixel && (!playerPixel || CarTopHalf))
+            if (CarPixel && (!playerPixel || CarPriority))
 				begin
 				    palette_addr = CarPixel;
 				end
@@ -104,7 +98,7 @@ module color_mapper (
 				end
 		  end
 		  else
-		  begin:money
+		  begin:Money
 				palette_addr = MoneyPixel;
 		  end
 		  

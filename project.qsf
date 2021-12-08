@@ -277,13 +277,15 @@ set_location_assignment PIN_B10 -to LED[3]
 set_location_assignment PIN_A10 -to LED[2]
 set_location_assignment PIN_A9 -to LED[1]
 set_location_assignment PIN_A8 -to LED[0]
-set_global_assignment -name SYSTEMVERILOG_FILE hardware/random.sv
+set_global_assignment -name VERILOG_FILE lfsr.v
+set_global_assignment -name SYSTEMVERILOG_FILE hardware/player_rom.sv
+set_global_assignment -name SYSTEMVERILOG_FILE hardware/money_rom.sv
+set_global_assignment -name SYSTEMVERILOG_FILE hardware/car_rom.sv
 set_global_assignment -name QIP_FILE crossy_robbers_soc/synthesis/crossy_robbers_soc.qip
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/text.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/money.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/palette_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/map_rom.sv
-set_global_assignment -name SYSTEMVERILOG_FILE hardware/tile_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/player.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/lane.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hardware/components/game.sv

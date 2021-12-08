@@ -64,10 +64,11 @@ module crossy_robbers (
 	logic [7:0] red, green, blue;
 	logic [7:0] keycode;
 	
-   logic Reset_h, Continue_h, blank, sync, pixel_clk, carTopHalf;
-	logic [3:0] rnd;
+   logic Reset_h, Continue_h, blank, sync, pixel_clk, carPriority;
+	logic [1:0] map;
 	logic [5:0] textPixel, p1Pixel, p2Pixel, MoneyPixel, carPixel;
 	logic [9:0] drawX, drawY;
+	logic [39:0] rnd;
 
 //=======================================================
 //  Structural coding
@@ -153,30 +154,34 @@ module crossy_robbers (
 		  .DrawY(drawY)            // vertical coordinate
     );
 	 
-	 random r0 (.ClkA(MAX10_CLK1_50), .ClkB(pixel_clk), .ClkC(VGA_VS), .ClkD(VGA_HS), .Out(rnd)); //for use in money.sv, lane.sv, and car.sv
+	 lfsr #(.WS(40),.LN(13)) random (.i_clk(MAX10_CLK1_50), .i_reset(1'b0), .i_ce(1'b1), .o_word(rnd)); //for use in money.sv, lane.sv, and car.sv
 	 
 	 game g0 (
 	     //INPUTS
 	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
 		  .Reset(Reset_h),
 		  .Continue(Continue_h),
+		  .Difficulty(2'b01),
 		  .Keycode(keycode),
-		  .DrawX(drawX),
+		  .DrawX(drawX + 100), //shift drawX and drawY for the sake of the playable area (so as not to deal with negatives)
 		  .DrawY(drawY),
+		  .Random(rnd),
 					
         //OUTPUTS
+		  .Map(map),
 		  .TextPixel(textPixel),
 		  .P1Pixel(p1Pixel),
 		  .P2Pixel(p2Pixel),
 		  .MoneyPixel(MoneyPixel),
 		  .CarPixel(carPixel),
-		  .CarTopHalf(carTopHalf),
+		  .CarPriority(carPriority),
 		  .LED(LED)
 	 );
 	 
 	 color_mapper colormapper (
 	     //INPUTS
 		  .Blank(blank),
+		  .Map(map),
 		  .DrawX(drawX),
 		  .DrawY(drawY),
 		  .TextPixel(textPixel),
@@ -184,7 +189,7 @@ module crossy_robbers (
 		  .P2Pixel(p2Pixel),
 		  .MoneyPixel(MoneyPixel),
 		  .CarPixel(carPixel),
-		  .CarTopHalf(carTopHalf),
+		  .CarPriority(carPriority),
 		  
         //OUTPUTS
 		  .Red(red), 

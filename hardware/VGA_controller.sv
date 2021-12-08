@@ -35,8 +35,8 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
     
     // 800 horizontal pixels indexed 0 to 799
     // 525 vertical pixels indexed 0 to 524
-    parameter [9:0] hpixels = 10'b1100011111;
-    parameter [9:0] vlines = 10'b1000001100;
+    localparam [9:0] hpixels = 10'b1100011111;
+    localparam [9:0] vlines = 10'b1000001100;
 	 
 	 // horizontal pixel and vertical line counters
     logic [9:0] hc, vc;

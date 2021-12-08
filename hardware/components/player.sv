@@ -14,18 +14,18 @@ module player (
     logic [9:0] Player_X_Pos, Player_X_Motion, Player_Y_Pos, Player_Y_Motion;
 	 
 	 // Using parameters because they have constant values (thus don't use registers)
-	 parameter [9:0] Player_X_Step = 1;
-	 parameter [9:0] Player_Y_Step = 1;
-	 parameter [9:0] Player_X_Max  = 6; //WRONG
-	 parameter [9:0] Player_Y_Max  = 1; //
-	 parameter [9:0] SpawnY        = 400;
+	 localparam [9:0] Player_X_Step = 1;
+	 localparam [9:0] Player_Y_Step = 1;
+	 localparam [9:0] Player_X_Max  = 6; //WRONG
+	 localparam [9:0] Player_Y_Max  = 1; //
+	 localparam [9:0] SpawnY        = 400;
 	 
 	 // Conditional parameters
-	 parameter [9:0] SpawnX = isPlayerOne ? 220 : 420;     // Horizontal spawnpoint
-	 parameter [7:0] Left   = isPlayerOne ? 8'h04 : 8'h50; // Left keycode
-	 parameter [7:0] Right  = isPlayerOne ? 8'h07 : 8'h4f; // Right keycode
-	 parameter [7:0] Up     = isPlayerOne ? 8'h1A : 8'h52; // Up keycode
-	 parameter [7:0] Down   = isPlayerOne ? 8'h16 : 8'h51; // Down keycode
+	 localparam [9:0] SpawnX = isPlayerOne ? 220 : 420;     // Horizontal spawnpoint
+	 localparam [7:0] Left   = isPlayerOne ? 8'h04 : 8'h50; // Left keycode
+	 localparam [7:0] Right  = isPlayerOne ? 8'h07 : 8'h4f; // Right keycode
+	 localparam [7:0] Up     = isPlayerOne ? 8'h1A : 8'h52; // Up keycode
+	 localparam [7:0] Down   = isPlayerOne ? 8'h16 : 8'h51; // Down keycode
    
     always_ff @ (posedge frame_clk)
     begin
