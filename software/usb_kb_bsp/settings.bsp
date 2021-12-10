@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Dec 2, 2021 10:56:57 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1638464217108</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Dec 10, 2021 9:46:31 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1639151191080</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\intelFPGA_lite\18.1\projects\CrossyRobbers\software\usb_kb_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\crossy_robbers_soc.sopcinfo</SopcDesignFile>

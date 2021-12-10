@@ -19,6 +19,7 @@ module crossy_robbers (
       ///////// KEYS /////////
       input              RESET,
 		input              CONTINUE,
+		output    [ 7: 0]   KEYCODE,
 
       ///////// LED /////////
       output   [ 9: 0]   LED,
@@ -28,6 +29,8 @@ module crossy_robbers (
       output   [ 6: 0]   HEX1,
       output   [ 6: 0]   HEX2,
       output   [ 6: 0]   HEX3,
+      output   [ 6: 0]   HEX4,
+      output   [ 6: 0]   HEX5,
 
       ///////// SDRAM /////////
       output             DRAM_CLK,
@@ -60,13 +63,12 @@ module crossy_robbers (
 //  REG/WIRE declarations
 //=======================================================
 	logic SPI0_CS_N, SPI0_SCLK, SPI0_MISO, SPI0_MOSI, USB_GPX, USB_IRQ, USB_RST;
-	logic [3:0] hex_num_3, hex_num_2, hex_num_1, hex_num_0; //4 bit input hex digits
+	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [7:0] red, green, blue;
-	logic [7:0] keycode;
 	
-   logic Reset_h, Continue_h, blank, sync, pixel_clk, carPriority;
+   logic Reset_h, Continue_h, blank, sync, pixel_clk, carPriority, playerPriority;
 	logic [1:0] map;
-	logic [5:0] textPixel, p1Pixel, p2Pixel, MoneyPixel, carPixel;
+	logic [5:0] textPixel, playerPixel, moneyPixel, carPixel;
 	logic [9:0] drawX, drawY;
 	logic [39:0] rnd;
 
@@ -92,10 +94,12 @@ module crossy_robbers (
 	assign ARDUINO_IO[6] = 1'b1;
 	
 	//HEX drivers to convert numbers to HEX output
+	HexDriver hex_driver4 (hex_num_4, HEX4);
 	HexDriver hex_driver3 (hex_num_3, HEX3);
-	HexDriver hex_driver2 (hex_num_2, HEX2);
 	HexDriver hex_driver1 (hex_num_1, HEX1);
 	HexDriver hex_driver0 (hex_num_0, HEX0);
+	assign HEX5 = 7'b1111111;
+	assign HEX2 = 7'b1111111;
 	
 	
 	//Invert the input keys to make them active high
@@ -114,6 +118,9 @@ module crossy_robbers (
 		.altpll_0_locked_conduit_export    (),    			   //altpll_0_locked_conduit.export
 		.altpll_0_phasedone_conduit_export (), 				   //altpll_0_phasedone_conduit.export
 		.altpll_0_areset_conduit_export    (),     			   //altpll_0_areset_conduit.export
+		
+		//KEYS
+		.keycode_export(KEYCODE),                             //keycode.export
 
 		//SDRAM
 		.sdram_clk_clk    (DRAM_CLK),            				   //clk_sdram.clk
@@ -158,11 +165,11 @@ module crossy_robbers (
 	 
 	 game g0 (
 	     //INPUTS
-	     .FrameClk(VGA_VS),      //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
+	     .FrameClk(VGA_VS),   //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
 		  .Reset(Reset_h),
 		  .Continue(Continue_h),
-		  .Difficulty(2'b01),
-		  .Keycode(keycode),
+		  .Difficulty(2'b00),
+		  .Keycode(KEYCODE),
 		  .DrawX(drawX + 100), //shift drawX and drawY for the sake of the playable area (so as not to deal with negatives)
 		  .DrawY(drawY),
 		  .Random(rnd),
@@ -170,11 +177,15 @@ module crossy_robbers (
         //OUTPUTS
 		  .Map(map),
 		  .TextPixel(textPixel),
-		  .P1Pixel(p1Pixel),
-		  .P2Pixel(p2Pixel),
-		  .MoneyPixel(MoneyPixel),
+		  .PlayerPixel(playerPixel),
+		  .PlayerPriority(playerPriority),
+		  .MoneyPixel(moneyPixel),
 		  .CarPixel(carPixel),
 		  .CarPriority(carPriority),
+		  .HEX3(hex_num_4),
+		  .HEX2(hex_num_3),
+		  .HEX1(hex_num_1),
+		  .HEX0(hex_num_0),
 		  .LED(LED)
 	 );
 	 
@@ -185,9 +196,9 @@ module crossy_robbers (
 		  .DrawX(drawX),
 		  .DrawY(drawY),
 		  .TextPixel(textPixel),
-		  .P1Pixel(p1Pixel),
-		  .P2Pixel(p2Pixel),
-		  .MoneyPixel(MoneyPixel),
+		  .PlayerPixel(playerPixel),
+		  .PlayerPriority(playerPriority),
+		  .MoneyPixel(moneyPixel),
 		  .CarPixel(carPixel),
 		  .CarPriority(carPriority),
 		  

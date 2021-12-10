@@ -1,0 +1,12 @@
+/*module collision (
+    input  logic [9:0]  X1, Y1, Width1, Height1;           //hitbox 1
+	 input  logic [9:0]  X2, Y2, Width2, Height2;           //hitbox 2
+    output logic Collided;
+);
+
+assign Collided = (((X1 >= X2)           && (X1 <= X2 + Width2))           ||    //check if left wall of 1 is in 2
+		            ((X1 + Width1 >= X2)   && (X1 + Width1 <= X2 + Width2)))  &&   //check if right wall of 1 is in 2
+				      (((Y1 >= Y2)           && (Y1 <= Y2 + Height2))          ||    //check if top wall of 1 is in 2
+				      ((Y1 + Height1 >= Y2)  && (Y1 + Height1 <= Y2 + Height2)));    //check if bottom wall of 1 is in 2
+
+endmodule

@@ -1,27 +1,29 @@
 
 module lane #(parameter [5:0] TileY = 0) (
-    input  logic FrameClk, SpawnEnable, Direction,
+    input  logic       FrameClk, SpawnEnable, Direction,
 	 input  logic [1:0] CarType,
     input  logic [2:0] CarCount, CarSpeed,
-	 input  logic [9:0] DrawX, DrawY,
-    output logic       CarPixel, CarPriority,
+	 input  logic [4:0] P1HbOffset, P2HbOffset,
+	 input  logic [9:0] DrawX, DrawY, P1X, P1Y, P2X, P2Y,
+    output logic       P1Hit, P2Hit, CarPixel, CarPriority,
 	 output logic [3:0] Tile,
     output logic [5:0] PixelX,
     output logic [4:0] PixelY
 );
 
-    // Declare local variables
+    // LOCAL LOGIC
 	 
-	 localparam [5:0] carWidth   = 48;  //640px width, minus 48px per car, gives total empty space. divide that evenly between the cars
+	 localparam [5:0] carWidth   = 6'd48;  //640px width, minus 48px per car, gives total empty space. divide that evenly between the cars
 	 
-	 logic init         = 1'b0;
-	 logic FaceLeft     = 1'b0;
-	 logic [1:0] Type   = 2'b0;
-	 logic [2:0] Speed  = 3'b0;
-	 logic [2:0] Count  = 3'b0;
-	 logic [9:0] carSpacing = 10'b0;
-	 logic [9:0] SpawnY     = 16 * TileY - 10; //-10 because car tiles are 26px tall but tiles are 16px
+	 logic FaceLeft;
+	 logic [1:0] Type;
+	 logic [2:0] Speed;
+	 logic [2:0] Count;
+	 logic [9:0] carSpacing;
+	 logic [9:0] SpawnY = 10'd16 * TileY - 10'd10; //-10 because car tiles are 26px tall but tiles are 16px
 	 
+    logic buP1Hit, c1P1Hit, c2P1Hit, c3P1Hit, c4P1Hit, c5P1Hit;
+	 logic buP2Hit, c1P2Hit, c2P2Hit, c3P2Hit, c4P2Hit, c5P2Hit;
 	 logic buPriority, c1Priority, c2Priority, c3Priority, c4Priority, c5Priority;
     logic buPixel, c1Pixel, c2Pixel, c3Pixel, c4Pixel, c5Pixel;
 	 logic [3:0] buTile, c1Tile, c2Tile, c3Tile, c4Tile, c5Tile;
@@ -29,7 +31,7 @@ module lane #(parameter [5:0] TileY = 0) (
 	 logic [4:0] buPixelY, c1PixelY, c2PixelY, c3PixelY, c4PixelY, c5PixelY;
 	 
 	 
-	 // Snapshot the randomized inputs when SpawnEnable is FIRST set to true
+	 // INIT LOGIC
 	 
 	 always_ff @ (posedge SpawnEnable)
 	 begin
@@ -38,24 +40,15 @@ module lane #(parameter [5:0] TileY = 0) (
 		  Speed    <= CarSpeed;
 		  Count    <= CarCount;
 	 end
-	 
-	 assign carSpacing = (640 - (carWidth*Count)) / (Count + 1);
 
 	 
-	 // Module instantiation - max of 6 cars per lane (including buffer car) means minimum of ~80px between each car
-	 
-	 car buff (.SpawnEnable(       SpawnEnable       ), .SpawnX(0*carSpacing - 1*carWidth + 100), .CarPixel(buPixel), .CarPriority(buPriority), .Tile(buTile), .PixelX(buPixelX), .PixelY(buPixelY), .*);
-    car car1 (.SpawnEnable(SpawnEnable && Count >= 1), .SpawnX(1*carSpacing + 0*carWidth + 100), .CarPixel(c1Pixel), .CarPriority(c1Priority), .Tile(c1Tile), .PixelX(c1PixelX), .PixelY(c1PixelY), .*);
-    car car2 (.SpawnEnable(SpawnEnable && Count >= 2), .SpawnX(2*carSpacing + 1*carWidth + 100), .CarPixel(c2Pixel), .CarPriority(c2Priority), .Tile(c2Tile), .PixelX(c2PixelX), .PixelY(c2PixelY), .*);
-    car car3 (.SpawnEnable(SpawnEnable && Count >= 3), .SpawnX(3*carSpacing + 2*carWidth + 100), .CarPixel(c3Pixel), .CarPriority(c3Priority), .Tile(c3Tile), .PixelX(c3PixelX), .PixelY(c3PixelY), .*);
-    car car4 (.SpawnEnable(SpawnEnable && Count >= 4), .SpawnX(4*carSpacing + 3*carWidth + 100), .CarPixel(c4Pixel), .CarPriority(c4Priority), .Tile(c4Tile), .PixelX(c4PixelX), .PixelY(c4PixelY), .*);
-    car car5 (.SpawnEnable(SpawnEnable && Count >= 5), .SpawnX(5*carSpacing + 4*carWidth + 100), .CarPixel(c5Pixel), .CarPriority(c5Priority), .Tile(c5Tile), .PixelX(c5PixelX), .PixelY(c5PixelY), .*);
-
-	 
-	 // Module outputs
+	 // OUTPUT LOGIC
 	 
 	 always_comb
 	 begin
+	     carSpacing = (10'd640 - (carWidth*Count)) / (Count + 1'b1);
+	     P1Hit = buP1Hit | c1P1Hit | c2P1Hit | c3P1Hit | c4P1Hit | c5P1Hit;
+	     P2Hit = buP2Hit | c1P2Hit | c2P2Hit | c3P2Hit | c4P2Hit | c5P2Hit;
 	     CarPriority = buPriority | c1Priority | c2Priority | c3Priority | c4Priority | c5Priority;
 	     CarPixel    = buPixel    |  c1Pixel   |  c2Pixel   |  c3Pixel   |  c4Pixel   |    c5Pixel;
 	     if (buPixel)
@@ -101,5 +94,15 @@ module lane #(parameter [5:0] TileY = 0) (
 				PixelY = 5'b0;
 		  end
 	 end
+
+	 
+	 // MODULE INSTANTIATION
+	 
+	 car buff (.SpawnEnable(       SpawnEnable       ), .SpawnX(         100 - carWidth        ), .P1Hit(buP1Hit), .P2Hit(buP2Hit), .CarPixel(buPixel), .CarPriority(buPriority), .Tile(buTile), .PixelX(buPixelX), .PixelY(buPixelY), .*);
+    car car1 (.SpawnEnable(SpawnEnable && Count >= 1), .SpawnX(1*carSpacing + 0*carWidth + 100), .P1Hit(c1P1Hit), .P2Hit(c1P2Hit), .CarPixel(c1Pixel), .CarPriority(c1Priority), .Tile(c1Tile), .PixelX(c1PixelX), .PixelY(c1PixelY), .*);
+    car car2 (.SpawnEnable(SpawnEnable && Count >= 2), .SpawnX(2*carSpacing + 1*carWidth + 100), .P1Hit(c2P1Hit), .P2Hit(c2P2Hit), .CarPixel(c2Pixel), .CarPriority(c2Priority), .Tile(c2Tile), .PixelX(c2PixelX), .PixelY(c2PixelY), .*);
+    car car3 (.SpawnEnable(SpawnEnable && Count >= 3), .SpawnX(3*carSpacing + 2*carWidth + 100), .P1Hit(c3P1Hit), .P2Hit(c3P2Hit), .CarPixel(c3Pixel), .CarPriority(c3Priority), .Tile(c3Tile), .PixelX(c3PixelX), .PixelY(c3PixelY), .*);
+    car car4 (.SpawnEnable(SpawnEnable && Count >= 4), .SpawnX(4*carSpacing + 3*carWidth + 100), .P1Hit(c4P1Hit), .P2Hit(c4P2Hit), .CarPixel(c4Pixel), .CarPriority(c4Priority), .Tile(c4Tile), .PixelX(c4PixelX), .PixelY(c4PixelY), .*);
+    car car5 (.SpawnEnable(SpawnEnable && Count >= 5), .SpawnX(5*carSpacing + 4*carWidth + 100), .P1Hit(c5P1Hit), .P2Hit(c5P2Hit), .CarPixel(c5Pixel), .CarPriority(c5Priority), .Tile(c5Tile), .PixelX(c5PixelX), .PixelY(c5PixelY), .*);
 
 endmodule

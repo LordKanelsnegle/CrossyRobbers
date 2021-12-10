@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'crossy_robbers_soc'
  * SOPC Builder design path: ../../crossy_robbers_soc.sopcinfo
  *
- * Generated: Thu Dec 02 10:56:57 CST 2021
+ * Generated: Wed Dec 08 22:02:56 CST 2021
  */
 
 /*

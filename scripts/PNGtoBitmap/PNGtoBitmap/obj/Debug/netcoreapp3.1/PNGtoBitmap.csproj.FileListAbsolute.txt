@@ -41,11 +41,6 @@ C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\
 C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\p2win.png
 C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\rematch.png
 C:\Users\Lord Kanelsnegle\Desktop\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\title.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\misc\p1win.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\misc\p2win.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\misc\rematch.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\misc\title.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\misc\win.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\money\pallets.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.exe
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\PNGtoBitmap.deps.json
@@ -74,3 +69,7 @@ C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bi
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\player\2-walk.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\player\3-death.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\car\yellow.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\rematch\rematch.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\title\title.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\pl_anim\win.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\pl_win\winner.png

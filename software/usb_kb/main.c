@@ -62,6 +62,24 @@ void setKeycode(WORD keycode)
 {
 	IOWR_ALTERA_AVALON_PIO_DATA(KEYCODE_BASE, keycode);
 }
+
+// Bit conversion taken from https://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
+// Assumes little endian
+void printBits(size_t const size, void const * const ptr)
+{
+    unsigned char *b = (unsigned char*) ptr;
+    unsigned char byte;
+    int i, j;
+
+    for (i = size-1; i >= 0; i--) {
+        for (j = 7; j >= 0; j--) {
+            byte = (b[i] >> j) & 1;
+            printf("%u", byte);
+        }
+    }
+    puts("");
+}
+
 int main() {
 	BYTE rcode;
 	BOOT_MOUSE_REPORT buf;		//USB mouse report
@@ -95,11 +113,40 @@ int main() {
 					printf("%x \n", rcode);
 					continue;
 				}
+				BYTE keycode = 0;
 				printf("keycodes: ");
 				for (int i = 0; i < 6; i++) {
 					printf("%x ", kbdbuf.keycode[i]);
+					switch (kbdbuf.keycode[i]) {
+						case 0x10: //A
+							keycode |= 128; //1000 0000
+							break;
+						case 0x80: //D
+							keycode |= 64; //0100 0000
+							break;
+						case 0x04: //W
+							keycode |= 32; //0010 0000
+							break;
+						case 0x40: //S
+							keycode |= 16; //0001 0000
+							break;
+						case 0x50: //left
+							keycode |= 8; //0000 1000
+							break;
+						case 0x4f: //right
+							keycode |= 4; //0000 0100
+							break;
+						case 0x52: //up
+							keycode |= 2; //0000 0010
+							break;
+						case 0x51: //down
+							keycode |= 1; //0000 0001
+							break;
+					}
 				}
-				setKeycode(kbdbuf.keycode[0]);
+				setKeycode(keycode);
+				printf("\nkeycode value: ");
+				printBits(sizeof(keycode), &keycode);
 				printf("\n");
 			}
 

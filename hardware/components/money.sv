@@ -1,95 +1,76 @@
-//-------------------------------------------------------------------------
-//    Ball.sv                                                            --
-//    Viral Mehta                                                        --
-//    Spring 2005                                                        --
-//                                                                       --
-//    Modified by Stephen Kempf 03-01-2006                               --
-//                              03-12-2007                               --
-//    Translated by Joe Meng    07-07-2013                               --
-//    Fall 2014 Distribution                                             --
-//                                                                       --
-//    For use with ECE 298 Lab 7                                         --
-//    UIUC ECE Department                                                --
-//-------------------------------------------------------------------------
-/*
+module money (
+    input  logic       FrameClk, SpawnEnable, P1Collected, P2Collected,
+	 input  logic [2:0] Random,
+	 input  logic [4:0] P1HbOffset, P2HbOffset,
+    input  logic [9:0] SpawnX, DrawX, DrawY, P1X, P1Y, P2X, P2Y,
+	 output logic [1:0] P1Collect, P2Collect,
+    output logic       MoneyPixel,
+	 output logic [1:0] Tile,
+    output logic [4:0] PixelX, PixelY
+);
 
-module  ball ( input Reset, frame_clk,
-					input [7:0] keycode,
-               output [9:0]  BallX, BallY, BallS );
-    
-    logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
+    // LOCAL LOGIC
 	 
-    parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
-    parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
-    parameter [9:0] Ball_X_Min=0;       // Leftmost point on the X axis
-    parameter [9:0] Ball_X_Max=639;     // Rightmost point on the X axis
-    parameter [9:0] Ball_Y_Min=0;       // Topmost point on the Y axis
-    parameter [9:0] Ball_Y_Max=479;     // Bottommost point on the Y axis
-    parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
-    parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
-
-    assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
-   
-    always_ff @ (posedge Reset or posedge frame_clk )
-    begin: Move_Ball
-        if (Reset)  // Asynchronous Reset
-        begin 
-            Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
-				Ball_X_Motion <= 10'd0; //Ball_X_Step;
-				Ball_Y_Pos <= Ball_Y_Center;
-				Ball_X_Pos <= Ball_X_Center;
+	 localparam [9:0] moneyWidth      = 10'd18;
+	 localparam [9:0] moneyHeight     = 10'd18;
+	 localparam [9:0] respawnDuration = 10'd595; //base respawn duration in frames, ie (int)59.52*seconds
+	 localparam [9:0] SpawnY          = 10'd436;
+	 
+	 logic spawned, p1Collect, p2Collect;
+    logic [1:0] state;
+	 logic [2:0] delay = 3'b0;
+	 logic [9:0] timer = 10'b0;
+	 
+	 
+	 //FRAME LOGIC
+	 
+    always_ff @ (posedge FrameClk)
+    begin
+        if (SpawnEnable)
+        begin
+		  
+		      if (!spawned)
+				begin
+				    delay   <= Random;
+		          state   <= Random[0] + 1'b1;
+		          timer   <= 10'b0;
+					 spawned <= 1'b1;
+				end
+				else
+				begin
+				
+				    //respawn logic
+					 if ((p1Collect && P1Collected) || (p2Collect && P2Collected))
+					     state <= 2'b0;
+		          else if (timer == respawnDuration + delay * 6'd60)
+						  spawned <= 1'b0;
+			    	 else if (!state)
+			    	     timer <= timer + 1'b1;
+						  
+				end
+				
         end
-           
-        else 
-        begin 
-				 if ( (Ball_Y_Pos + Ball_Size) >= Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
-					  Ball_Y_Motion <= (~(Ball_Y_Step) + 1'b1);  // 2's complement.
-					  
-				 else if ( (Ball_Y_Pos - Ball_Size) <= Ball_Y_Min )  // Ball is at the top edge, BOUNCE!
-					  Ball_Y_Motion <= Ball_Y_Step;
-					  
-				  else if ( (Ball_X_Pos + Ball_Size) >= Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
-					  Ball_X_Motion <= (~(Ball_X_Step) + 1'b1);  // 2's complement.
-					  
-				 else if ( (Ball_X_Pos - Ball_Size) <= Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
-					  Ball_X_Motion <= Ball_X_Step;
-					  
-				 else begin
-					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
-						 case (keycode)
-							8'h04 : begin //A
-										Ball_X_Motion <= (~(Ball_X_Step) + 1'b1);  // 2's complement.
-										Ball_Y_Motion <= 0;
-									  end
-									  
-							8'h07 : begin //D
-										Ball_X_Motion <= Ball_X_Step;
-										Ball_Y_Motion <= 0;
-									  end
-									  
-							8'h16 : begin //S
-									  Ball_Y_Motion <= Ball_Y_Step;
-									  Ball_X_Motion <= 0;
-									 end
-									  
-							8'h1A : begin //W
-									  Ball_Y_Motion <= (~(Ball_Y_Step) + 1'b1);  // 2's complement.
-									  Ball_X_Motion <= 0;
-									 end	  
-							default: ;
-						endcase
-				 end
-				 
-				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
-				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
-		end  
+		  else
+		      spawned  <= 1'b0;
     end
-       
-    assign BallX = Ball_X_Pos;
-   
-    assign BallY = Ball_Y_Pos;
-   
-    assign BallS = Ball_Size;
-    
+	 
+	 
+	 // OUTPUT LOGIC
+	 
+	 always_comb
+	 begin
+	     MoneyPixel = (SpawnEnable && SpawnX <= DrawX && DrawX < SpawnX + moneyWidth && SpawnY <= DrawY && DrawY < SpawnY + moneyHeight);
+		  P1Collect  = (p1Collect)  ? state : 2'b0;
+		  P2Collect  = (p2Collect && !p1Collect) ? state : 2'b0; //give collection priority to p1 in the edge case where they both collect the same money in the same frame
+		  Tile       = (MoneyPixel) ? state          : 2'b0;
+		  PixelX     = (MoneyPixel) ? DrawX - SpawnX : 5'b0;
+		  PixelY     = (MoneyPixel) ? DrawY - SpawnY : 5'b0;
+	 end
+	 
+	 
+	 // MODULE INSTANTIATION
+	 
+	 collision p1 (.X1(P1X+P1HbOffset), .Y1(P1Y+10'd16), .Width1(10'd16), .Height1(10'd16), .X2(SpawnX), .Y2(SpawnY), .Width2(moneyWidth), .Height2(moneyHeight), .Collided(p1Collect));
+	 collision p2 (.X1(P2X+P2HbOffset), .Y1(P2Y+10'd16), .Width1(10'd16), .Height1(10'd16), .X2(SpawnX), .Y2(SpawnY), .Width2(moneyWidth), .Height2(moneyHeight), .Collided(p2Collect));
 
-endmodule*/
+endmodule

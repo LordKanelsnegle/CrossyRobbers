@@ -73,10 +73,10 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
 					if ( vc == vlines )   //if vc has reached end of line count
 						 vc <= 10'b0000000000;
 					else 
-						 vc <= (vc + 1);
+						 vc <= (vc + 1'b1);
 			  end
 			 else 
-				  hc <= (hc + 1);  //no statement about vc, implied vc <= vc;
+				  hc <= (hc + 1'b1);  //no statement about vc, implied vc <= vc;
 	 end 
    
     assign DrawX = hc;
