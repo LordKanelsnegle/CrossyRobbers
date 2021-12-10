@@ -8,7 +8,7 @@ module collision (
 	 
 	 always_comb
 	 begin
-	     Collided = X1 < X2 + Width2 && X1 + Width1 > X2 && Y1 < Y2 + Height2 && Y1 + Height1 > Y2;
+	     Collided = (X1 < X2 + Width2) && (X1 + Width1 > X2) && (Y1 < Y2 + Height2) && (Y1 + Height1 > Y2);
 	 end
 
 endmodule

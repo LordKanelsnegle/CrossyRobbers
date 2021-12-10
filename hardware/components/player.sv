@@ -5,7 +5,7 @@ module player (
 	 input  logic [2:0] Speed,
     input  logic [7:0] Keycode,
     input  logic [9:0] DrawX, DrawY,
-	 output logic       Collected, PlayerPixel, PlayerPriority,
+	 output logic       Dead, Collected, PlayerPixel,
 	 output logic [6:0] Tile,
     output logic [4:0] PixelX, PixelY, HbOffset,
 	 output logic [6:0] Score,
@@ -178,11 +178,11 @@ module player (
 	     SpawnX         = (PlayerOne) ? 10'd292 : 10'd548 - playerWidth; //bank takes up the middle 16 tiles, so 192 on either side of players plus offset of 100
 		  
 	     PlayerPixel    = (SpawnEnable && playerX <= DrawX && DrawX < playerX + playerWidth && playerY <= DrawY && DrawY < playerY + playerHeight);
-		  PlayerPriority = (SpawnEnable && playerY <= DrawY &&   DrawY < playerY + 10'd16    && PlayerPixel);
 		  Tile           = (state * tilesPerAnim * (maxItems+1'b1)) + (tileNum * (maxItems+1'b1)) + items;
 		  PixelX         = faceLeft ? (playerWidth - 1'b1) - (DrawX - playerX) : DrawX - playerX;
 		  PixelY         = DrawY - playerY;
 		  
+		  Dead           = (state > Walk);
 	     Score          = score;
 		  HbOffset       = (faceLeft) ? 5'b0 : 5'd16;
 		  PlayerX        = playerX;

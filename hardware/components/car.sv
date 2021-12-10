@@ -4,7 +4,7 @@ module car (
 	 input  logic [2:0] Speed,
 	 input  logic [4:0] P1HbOffset, P2HbOffset,
     input  logic [9:0] DrawX, DrawY, SpawnX, SpawnY, P1X, P1Y, P2X, P2Y,
-    output logic       P1Hit, P2Hit, CarPixel, CarPriority,
+    output logic       P1Hit, P2Hit, CarPixel,
 	 output logic [3:0] Tile,
     output logic [5:0] PixelX,
     output logic [4:0] PixelY
@@ -20,7 +20,7 @@ module car (
 	 localparam [9:0] carMaxX       = 10'd739;
 	 
 	 logic spawned, moved;
-	 logic [1:0] tileNum, TYPE_DEBUG;
+	 logic [1:0] tileNum;
 	 logic [2:0] frameNum;
 	 logic [9:0] carX;
 	 
@@ -34,7 +34,6 @@ module car (
 		  
 		      if (!spawned)
 				begin
-				    TYPE_DEBUG <= Type;
 		          tileNum  <= 2'b0;
 		          frameNum <= 3'b0;
 		          carX     <= SpawnX;
@@ -42,9 +41,6 @@ module car (
 				end
 				else
 				begin
-				
-				    if (TYPE_DEBUG == Type)
-					     TYPE_DEBUG <= TYPE_DEBUG + P1Hit;
 				
 				    //car animation logic
 		          if (frameNum == framesPerTile)
@@ -91,8 +87,7 @@ module car (
 	 always_comb
 	 begin
 	     CarPixel    = (SpawnEnable && carX   <= DrawX && DrawX < carX + carWidth && SpawnY <= DrawY && DrawY < SpawnY + carHeight);
-	     CarPriority = (SpawnEnable && SpawnY <= DrawY &&   DrawY < SpawnY + (carHeight - 10'd16)    && CarPixel);
-		  Tile        = (TYPE_DEBUG * tilesPerAnim) + tileNum;// + P1Hit; //+ P1Hit ONLY FOR DEBUGGING
+		  Tile        = (Type * tilesPerAnim) + tileNum;
 		  PixelX      = FaceLeft ? DrawX - carX : (carWidth - 1'b1) - (DrawX - carX);
 		  PixelY      = DrawY - SpawnY;
 	 end

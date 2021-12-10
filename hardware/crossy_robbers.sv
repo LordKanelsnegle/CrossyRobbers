@@ -19,7 +19,7 @@ module crossy_robbers (
       ///////// KEYS /////////
       input              RESET,
 		input              CONTINUE,
-		output    [ 7: 0]   KEYCODE,
+		output   [ 7: 0]   KEYCODE,
 
       ///////// LED /////////
       output   [ 9: 0]   LED,
@@ -66,7 +66,7 @@ module crossy_robbers (
 	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [7:0] red, green, blue;
 	
-   logic Reset_h, Continue_h, blank, sync, pixel_clk, carPriority, playerPriority;
+   logic Reset_h, Continue_h, blank, sync, pixel_clk, playerPriority;
 	logic [1:0] map;
 	logic [5:0] textPixel, playerPixel, moneyPixel, carPixel;
 	logic [9:0] drawX, drawY;
@@ -181,7 +181,6 @@ module crossy_robbers (
 		  .PlayerPriority(playerPriority),
 		  .MoneyPixel(moneyPixel),
 		  .CarPixel(carPixel),
-		  .CarPriority(carPriority),
 		  .HEX3(hex_num_4),
 		  .HEX2(hex_num_3),
 		  .HEX1(hex_num_1),
@@ -200,7 +199,6 @@ module crossy_robbers (
 		  .PlayerPriority(playerPriority),
 		  .MoneyPixel(moneyPixel),
 		  .CarPixel(carPixel),
-		  .CarPriority(carPriority),
 		  
         //OUTPUTS
 		  .Red(red), 

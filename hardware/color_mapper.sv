@@ -12,7 +12,7 @@
 
 
 module color_mapper (
-    input  logic       Blank, CarPriority, PlayerPriority,
+    input  logic       Blank, PlayerPriority,
 	 input  logic [1:0] Map,
     input  logic [9:0] DrawX, DrawY,
 	 input  logic [5:0] TextPixel, PlayerPixel, MoneyPixel, CarPixel, //all of these should be palette indices, not 32 bit ARGB values.
@@ -69,7 +69,7 @@ module color_mapper (
 		  end
 		  else if (PlayerPixel || CarPixel)
 		  begin
-            if (CarPixel && (!PlayerPixel || (CarPriority && !PlayerPriority)))
+            if (CarPixel && !(PlayerPixel && PlayerPriority))
 				    palette_addr = CarPixel;
 				else
 				    palette_addr = PlayerPixel;

@@ -5,7 +5,7 @@ module lane #(parameter [5:0] TileY = 0) (
     input  logic [2:0] CarCount, CarSpeed,
 	 input  logic [4:0] P1HbOffset, P2HbOffset,
 	 input  logic [9:0] DrawX, DrawY, P1X, P1Y, P2X, P2Y,
-    output logic       P1Hit, P2Hit, CarPixel, CarPriority,
+    output logic       P1Hit, P2Hit, CarPixel,
 	 output logic [3:0] Tile,
     output logic [5:0] PixelX,
     output logic [4:0] PixelY
@@ -24,7 +24,6 @@ module lane #(parameter [5:0] TileY = 0) (
 	 
     logic buP1Hit, c1P1Hit, c2P1Hit, c3P1Hit, c4P1Hit, c5P1Hit;
 	 logic buP2Hit, c1P2Hit, c2P2Hit, c3P2Hit, c4P2Hit, c5P2Hit;
-	 logic buPriority, c1Priority, c2Priority, c3Priority, c4Priority, c5Priority;
     logic buPixel, c1Pixel, c2Pixel, c3Pixel, c4Pixel, c5Pixel;
 	 logic [3:0] buTile, c1Tile, c2Tile, c3Tile, c4Tile, c5Tile;
 	 logic [5:0] buPixelX, c1PixelX, c2PixelX, c3PixelX, c4PixelX, c5PixelX;
@@ -49,7 +48,6 @@ module lane #(parameter [5:0] TileY = 0) (
 	     carSpacing = (10'd640 - (carWidth*Count)) / (Count + 1'b1);
 	     P1Hit = buP1Hit | c1P1Hit | c2P1Hit | c3P1Hit | c4P1Hit | c5P1Hit;
 	     P2Hit = buP2Hit | c1P2Hit | c2P2Hit | c3P2Hit | c4P2Hit | c5P2Hit;
-	     CarPriority = buPriority | c1Priority | c2Priority | c3Priority | c4Priority | c5Priority;
 	     CarPixel    = buPixel    |  c1Pixel   |  c2Pixel   |  c3Pixel   |  c4Pixel   |    c5Pixel;
 	     if (buPixel)
 		  begin
@@ -98,11 +96,11 @@ module lane #(parameter [5:0] TileY = 0) (
 	 
 	 // MODULE INSTANTIATION
 	 
-	 car buff (.SpawnEnable(       SpawnEnable       ), .SpawnX(         100 - carWidth        ), .P1Hit(buP1Hit), .P2Hit(buP2Hit), .CarPixel(buPixel), .CarPriority(buPriority), .Tile(buTile), .PixelX(buPixelX), .PixelY(buPixelY), .*);
-    car car1 (.SpawnEnable(SpawnEnable && Count >= 1), .SpawnX(1*carSpacing + 0*carWidth + 100), .P1Hit(c1P1Hit), .P2Hit(c1P2Hit), .CarPixel(c1Pixel), .CarPriority(c1Priority), .Tile(c1Tile), .PixelX(c1PixelX), .PixelY(c1PixelY), .*);
-    car car2 (.SpawnEnable(SpawnEnable && Count >= 2), .SpawnX(2*carSpacing + 1*carWidth + 100), .P1Hit(c2P1Hit), .P2Hit(c2P2Hit), .CarPixel(c2Pixel), .CarPriority(c2Priority), .Tile(c2Tile), .PixelX(c2PixelX), .PixelY(c2PixelY), .*);
-    car car3 (.SpawnEnable(SpawnEnable && Count >= 3), .SpawnX(3*carSpacing + 2*carWidth + 100), .P1Hit(c3P1Hit), .P2Hit(c3P2Hit), .CarPixel(c3Pixel), .CarPriority(c3Priority), .Tile(c3Tile), .PixelX(c3PixelX), .PixelY(c3PixelY), .*);
-    car car4 (.SpawnEnable(SpawnEnable && Count >= 4), .SpawnX(4*carSpacing + 3*carWidth + 100), .P1Hit(c4P1Hit), .P2Hit(c4P2Hit), .CarPixel(c4Pixel), .CarPriority(c4Priority), .Tile(c4Tile), .PixelX(c4PixelX), .PixelY(c4PixelY), .*);
-    car car5 (.SpawnEnable(SpawnEnable && Count >= 5), .SpawnX(5*carSpacing + 4*carWidth + 100), .P1Hit(c5P1Hit), .P2Hit(c5P2Hit), .CarPixel(c5Pixel), .CarPriority(c5Priority), .Tile(c5Tile), .PixelX(c5PixelX), .PixelY(c5PixelY), .*);
+	 car buff (.SpawnEnable(       SpawnEnable       ), .SpawnX(         100 - carWidth        ), .P1Hit(buP1Hit), .P2Hit(buP2Hit), .CarPixel(buPixel), .Tile(buTile), .PixelX(buPixelX), .PixelY(buPixelY), .*);
+    car car1 (.SpawnEnable(SpawnEnable && Count >= 1), .SpawnX(1*carSpacing + 0*carWidth + 100), .P1Hit(c1P1Hit), .P2Hit(c1P2Hit), .CarPixel(c1Pixel), .Tile(c1Tile), .PixelX(c1PixelX), .PixelY(c1PixelY), .*);
+    car car2 (.SpawnEnable(SpawnEnable && Count >= 2), .SpawnX(2*carSpacing + 1*carWidth + 100), .P1Hit(c2P1Hit), .P2Hit(c2P2Hit), .CarPixel(c2Pixel), .Tile(c2Tile), .PixelX(c2PixelX), .PixelY(c2PixelY), .*);
+    car car3 (.SpawnEnable(SpawnEnable && Count >= 3), .SpawnX(3*carSpacing + 2*carWidth + 100), .P1Hit(c3P1Hit), .P2Hit(c3P2Hit), .CarPixel(c3Pixel), .Tile(c3Tile), .PixelX(c3PixelX), .PixelY(c3PixelY), .*);
+    car car4 (.SpawnEnable(SpawnEnable && Count >= 4), .SpawnX(4*carSpacing + 3*carWidth + 100), .P1Hit(c4P1Hit), .P2Hit(c4P2Hit), .CarPixel(c4Pixel), .Tile(c4Tile), .PixelX(c4PixelX), .PixelY(c4PixelY), .*);
+    car car5 (.SpawnEnable(SpawnEnable && Count >= 5), .SpawnX(5*carSpacing + 4*carWidth + 100), .P1Hit(c5P1Hit), .P2Hit(c5P2Hit), .CarPixel(c5Pixel), .Tile(c5Tile), .PixelX(c5PixelX), .PixelY(c5PixelY), .*);
 
 endmodule
