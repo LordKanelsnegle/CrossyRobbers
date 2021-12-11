@@ -72,4 +72,7 @@ C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bi
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\rematch\rematch.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\title\title.png
 C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\pl_anim\win.png
-C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\pl_win\winner.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\difficulty\difficulty.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\select\select.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\winner\p1win.png
+C:\intelFPGA_lite\18.1\projects\CrossyRobbers\scripts\PNGtoBitmap\PNGtoBitmap\bin\Debug\netcoreapp3.1\assets\text\winner\p2win.png

@@ -43,7 +43,7 @@ module car (
 				begin
 				
 				    //car animation logic
-		          if (frameNum == framesPerTile)
+		          if (frameNum == framesPerTile - 1'b1)
 				    begin
 				        frameNum <= 3'b0;
 		              if (tileNum == tilesPerAnim - 1'b1)

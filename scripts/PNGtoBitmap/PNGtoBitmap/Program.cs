@@ -34,13 +34,12 @@ namespace PNGtoBitmap
             int bitsPerPixel = (int)Math.Ceiling(Math.Log2(colorsPerTile));
 
             // Initialize list to keep track of palette colors
-            List<Color> palette = new List<Color>();
-            palette.Add(Color.FromArgb(255, 150, 250, 50)); //"transparent" color
-            palette.AddRange(new List<Color> {
+            List<Color> palette = new List<Color> {
+                Color.FromArgb(255, 150, 250, 50), //"transparent" color
                 Color.FromArgb(255, 242, 145, 119), Color.FromArgb(255, 104, 237, 71), //p1/p2 hat top/pupils
                 Color.FromArgb(255, 172, 50, 50),   Color.FromArgb(255, 38, 132, 38),  //p1/p2 hat bottom
                 Color.FromArgb(255, 190, 50, 63),   Color.FromArgb(255, 39, 148, 50)   //p1/p2 eyes
-            });
+            };
 
             // Generate tile_rom, map_rom, and the bulk of palette
             palette = ReadSprites("map", colorsPerTile, bitsPerPixel, palette, 16, 16);
@@ -50,7 +49,9 @@ namespace PNGtoBitmap
             palette = ReadSprites("car", colorsPerTile, bitsPerPixel, palette, 48, 26);
             palette = ReadSprites("player", colorsPerTile, bitsPerPixel, palette, 32, 32);
             palette = ReadSprites("text\\title", colorsPerTile, bitsPerPixel, palette, 376, 152);
-            palette = ReadSprites("text\\pl_win", colorsPerTile, bitsPerPixel, palette, 327, 57);
+            palette = ReadSprites("text\\difficulty", colorsPerTile, bitsPerPixel, palette, 366, 263);
+            palette = ReadSprites("text\\select", colorsPerTile, bitsPerPixel, palette, 42, 38);
+            palette = ReadSprites("text\\winner", colorsPerTile, bitsPerPixel, palette, 327, 57);
             palette = ReadSprites("text\\pl_anim", colorsPerTile, bitsPerPixel, palette, 115, 225);
             palette = ReadSprites("text\\rematch", colorsPerTile, bitsPerPixel, palette, 399, 43);
 
@@ -205,7 +206,8 @@ namespace PNGtoBitmap
                                                     $"\n    output logic [{paletteBits - 1}:0] Data" +
                                                     $"\n);\n" +
                                                     (name.Contains("pl") ? $"\n    logic [{paletteBits - 1}:0] pixel;" : "") +
-                                                    $"\n    logic [{dataWidth - 1}:0] data{(tileBits > 0 ? $";\n    logic [{addrWidth - 1}:0] bitmapIdx;" : $" = {data};")}" +
+                                                    $"\n    logic [{dataWidth - 1}:0] data{(tileBits > 0 ? "" : $" = {data}")};" + 
+                                                    $"\n    logic [{addrWidth - 1}:0] bitmapIdx;" +
                                                     $"\n    logic [{bitmapWidth - 1}:0] bitmap;" +
                                                     $"\n    logic [{bitsPerPixel - 1}:0] color;\n" +
                                                     (tileBits > 0 ? $"\n    localparam bit [{dataWidth - 1}:0] DATA [{totalMaps}] = " + "'{" +
@@ -216,9 +218,9 @@ namespace PNGtoBitmap
                                                     "\n    };\n" +
                                                     $"\n    always_comb" +
                                                     $"\n    begin" +
-                                                    (tileBits > 0 ? $"\n        data      = DATA[Tile];" +
-                                                    $"\n        bitmapIdx = {addrWidth}'d{tileHeight} * data[{tilesWidth - 1}:0] + PixelY;" +
-                                                    $"\n        bitmap    = BITMAPS[bitmapIdx];" : "\n        bitmap    = BITMAPS[0];") +
+                                                    (tileBits > 0 ? $"\n        data      = DATA[Tile];" : "") +
+                                                    $"\n        bitmapIdx = {(tileBits > 0 ? $"{addrWidth}'d{tileHeight} * data[{(tilesWidth > 1 ? $"{tilesWidth - 1}:" : "")}0] + " : "" )}PixelY;" +
+                                                    $"\n        bitmap    = BITMAPS[bitmapIdx];" +
                                                     $"\n        color     = bitmap[{bitsPerPixel}*({tileWidth - 1}-PixelX) +: {bitsPerPixel}];" +
                                                     $"\n        {(name.Contains("pl") ? "pixel" : "Data ")}     = data[{paletteBits}*color+{tilesWidth} +: {paletteBits}];" +
                                                     (name.Contains("pl") ? "\n        Data      = (0 < pixel && pixel < 6) ? pixel + PlayerTwo : pixel;" : "") +

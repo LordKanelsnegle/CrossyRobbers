@@ -50,7 +50,7 @@ module color_mapper (
 		  begin
 		      for (int y = 98; y <= 258; y += 160) //lamps are 160px apart vertically, starting from 98
 		      begin
-				    mapPixel |= (x     <= DrawX && DrawX <= x + 3) && (y     <= DrawY && DrawY <= y + 29); //check if pixel is in lamp body
+				    mapPixel |= (x     <= DrawX && DrawX <= x + 3) && (y     <= DrawY && DrawY <= y + 38); //check if pixel is in lamp body
 		          mapPixel |= (x - 1 <= DrawX && DrawX <= x + 4) && (y + 3 <= DrawY && DrawY <= y + 7 ); //check if pixel is in lamp head sides
 		          mapPixel |= (x + 1 <= DrawX && DrawX <= x + 2) && (         y - 1 == DrawY          ); //check if pixel is in lamp head top
 		      end

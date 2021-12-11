@@ -5,6 +5,7 @@ module text_title_rom (
 );
 
     logic [47:0] data = 48'b00000000000000000000000000000111110101010000000;
+    logic [7:0] bitmapIdx;
     logic [1127:0] bitmap;
     logic [2:0] color;
 
@@ -171,7 +172,8 @@ module text_title_rom (
 
     always_comb
     begin
-        bitmap    = BITMAPS[0];
+        bitmapIdx = PixelY;
+        bitmap    = BITMAPS[bitmapIdx];
         color     = bitmap[3*(375-PixelX) +: 3];
         Data      = data[6*color+0 +: 6];
     end

@@ -65,7 +65,7 @@ module player (
 				begin
 				
 				    //player animation and death logic
-		          if (frameNum == framesPerTile)
+		          if (frameNum == framesPerTile - 1'b1)
 				    begin
 				        frameNum <= 3'b0;
 						  if (state == Dead2)

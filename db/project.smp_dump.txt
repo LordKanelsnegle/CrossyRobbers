@@ -1,9 +1,10 @@
 
 State Machine - |crossy_robbers|game:g0|curr_state
-Name curr_state.Menu curr_state.End curr_state.Game 
-curr_state.Menu 0 0 0 
-curr_state.Game 1 0 1 
-curr_state.End 1 1 0 
+Name curr_state.End curr_state.Game curr_state.Difficulty curr_state.Menu 
+curr_state.Menu 0 0 0 0 
+curr_state.Difficulty 0 0 1 1 
+curr_state.Game 0 1 0 1 
+curr_state.End 1 0 0 1 
 
 State Machine - |crossy_robbers|crossy_robbers_soc:cr0|crossy_robbers_soc_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 

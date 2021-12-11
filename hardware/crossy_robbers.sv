@@ -168,7 +168,6 @@ module crossy_robbers (
 	     .FrameClk(VGA_VS),   //using vs as frame clock because it cycles when a full frame has been drawn (width then height)
 		  .Reset(Reset_h),
 		  .Continue(Continue_h),
-		  .Difficulty(2'b01),
 		  .Keycode(KEYCODE),
 		  .DrawX(drawX + 100), //shift drawX and drawY for the sake of the playable area (so as not to deal with negatives)
 		  .DrawY(drawY),
