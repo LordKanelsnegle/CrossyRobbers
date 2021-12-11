@@ -5,7 +5,7 @@ module player (
 	 input  logic [2:0] Speed,
     input  logic [7:0] Keycode,
     input  logic [9:0] DrawX, DrawY,
-	 output logic       Dead, Collected, PlayerPixel,
+	 output logic       Dead, Full, PlayerPixel,
 	 output logic [6:0] Tile,
     output logic [4:0] PixelX, PixelY, HbOffset,
 	 output logic [6:0] Score,
@@ -17,6 +17,7 @@ module player (
 	 localparam [1:0] maxItems      = 2'd3;
 	 localparam [3:0] tilesPerAnim  = 4'd8;
 	 localparam [2:0] framesPerTile = 3'd5;  //roughly equivalent to 12fps (60/5 = 12)
+	 localparam [5:0] deathPenalty  = 6'd60; //60*5*60fps = approx 5s delay on death
 	 localparam [9:0] playerWidth   = 10'd32;
 	 localparam [9:0] playerHeight  = 10'd32;
 	 localparam [9:0] playerMinX    = 10'd100;
@@ -26,12 +27,13 @@ module player (
 	 localparam [9:0] SpawnY        = 10'd400;
 	 logic [9:0] SpawnX;
 	 
-	 logic spawned, faceLeft, moved, deposited;
+	 logic spawned, dead, faceLeft, moved, deposited;
 	 logic [1:0] items;
 	 logic [2:0] itemsVal;
 	 logic [2:0] speed;
 	 logic [2:0] tileNum;
 	 logic [2:0] frameNum;
+	 logic [5:0] deathNum;
 	 logic [6:0] score;
 	 logic [9:0] playerX;
 	 logic [9:0] playerY;
@@ -54,6 +56,7 @@ module player (
 					 itemsVal <= 3'b0;
 		   	    tileNum  <= 3'b0;
 		   	    frameNum <= 3'b0;
+		   	    deathNum <= 6'b0;
 		   	    playerX  <= SpawnX;
 		   	    playerY  <= SpawnY;
 					 spawned  <= 1'b1;
@@ -61,17 +64,23 @@ module player (
 				else
 				begin
 				
-				    //player animation logic
+				    //player animation and death logic
 		          if (frameNum == framesPerTile)
 				    begin
 				        frameNum <= 3'b0;
-		              if (tileNum == tilesPerAnim) //technically we dont need this check in the case of player since tilesPerAnim is 8 and tileNum is 3 bits
+						  if (state == Dead2)
 						  begin
-				            tileNum <= 3'b0;
+						      if (deathNum == deathPenalty)
+						          spawned  <= 1'b0;
+								else
+								    deathNum <= deathNum + 1'b1;
+						  end
+		              if (tileNum == tilesPerAnim - 1'b1)
+						  begin
+						      if (state != Dead2) //only reset tile counter if not in death penalty
+				                tileNum <= 3'b0;
 						      if (state == Dead1)
 						          state <= Dead2;
-						      else if (state == Dead2)
-						          spawned <= 1'b0;
 						  end
 				    	  else
 				            tileNum <= tileNum + 1'b1;
@@ -141,14 +150,12 @@ module player (
 								    moved <= 1'b0;
 								
 					         //player item logic
-					         Collected <= 1'b0;
-					         if (PlayerCollect && items < maxItems)
+					         if (PlayerCollect)
 					         begin
 	                         items     <= items + 1'b1;
 					             itemsVal  <= itemsVal + PlayerCollect;
-						          Collected <= 1'b1;
 					         end
-								else if (deposited)
+								if (deposited)
 								begin
 								    score    <= score + itemsVal;
 									 itemsVal <= 3'b0;
@@ -183,16 +190,16 @@ module player (
 		  PixelY         = DrawY - playerY;
 		  
 		  Dead           = (state > Walk);
+		  Full           = (items == maxItems);
 	     Score          = score;
 		  HbOffset       = (faceLeft) ? 5'b0 : 5'd16;
 		  PlayerX        = playerX;
 		  PlayerY        = playerY;
-		  
 	 end
 	 
 	 
 	 // MODULE INSTANTIATION
 	 
-	 collision deposit (.X1(playerX+HbOffset), .Y1(playerY+10'd16), .Width1(10'd16), .Height1(10'd16), .X2(10'd288), .Y2(playerMinY), .Width2(10'd64), .Height2(10'd40), .Collided(deposited)); //288 and 64 are hardcoded heist vehicle vals
+	 collision deposit (.X1(playerX+HbOffset), .Y1(playerY+10'd30), .Width1(10'd16), .Height1(10'd1), .X2(10'd388), .Y2(playerMinY), .Width2(10'd64), .Height2(10'd33), .Collided(deposited)); //288 and 64 are hardcoded heist vehicle vals
 
 endmodule

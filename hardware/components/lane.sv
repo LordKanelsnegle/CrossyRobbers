@@ -46,9 +46,9 @@ module lane #(parameter [5:0] TileY = 0) (
 	 always_comb
 	 begin
 	     carSpacing = (10'd640 - (carWidth*Count)) / (Count + 1'b1);
-	     P1Hit = buP1Hit | c1P1Hit | c2P1Hit | c3P1Hit | c4P1Hit | c5P1Hit;
-	     P2Hit = buP2Hit | c1P2Hit | c2P2Hit | c3P2Hit | c4P2Hit | c5P2Hit;
-	     CarPixel    = buPixel    |  c1Pixel   |  c2Pixel   |  c3Pixel   |  c4Pixel   |    c5Pixel;
+	     P1Hit      = buP1Hit | c1P1Hit | c2P1Hit | c3P1Hit | c4P1Hit | c5P1Hit;
+	     P2Hit      = buP2Hit | c1P2Hit | c2P2Hit | c3P2Hit | c4P2Hit | c5P2Hit;
+	     CarPixel   = buPixel | c1Pixel | c2Pixel | c3Pixel | c4Pixel | c5Pixel;
 	     if (buPixel)
 		  begin
 				Tile   = buTile;

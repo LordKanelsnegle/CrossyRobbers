@@ -118,16 +118,16 @@ int main() {
 				for (int i = 0; i < 6; i++) {
 					printf("%x ", kbdbuf.keycode[i]);
 					switch (kbdbuf.keycode[i]) {
-						case 0x10: //A
+						case 0x04: //A
 							keycode |= 128; //1000 0000
 							break;
-						case 0x80: //D
+						case 0x07: //D
 							keycode |= 64; //0100 0000
 							break;
-						case 0x04: //W
+						case 0x1a: //W
 							keycode |= 32; //0010 0000
 							break;
-						case 0x40: //S
+						case 0x16: //S
 							keycode |= 16; //0001 0000
 							break;
 						case 0x50: //left

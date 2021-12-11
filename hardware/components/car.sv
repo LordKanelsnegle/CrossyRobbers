@@ -19,7 +19,7 @@ module car (
 	 localparam [9:0] carMinX       = 10'd100;
 	 localparam [9:0] carMaxX       = 10'd739;
 	 
-	 logic spawned, moved;
+	 logic spawned, moved, p1Hit, p2Hit;
 	 logic [1:0] tileNum;
 	 logic [2:0] frameNum;
 	 logic [9:0] carX;
@@ -46,7 +46,7 @@ module car (
 		          if (frameNum == framesPerTile)
 				    begin
 				        frameNum <= 3'b0;
-		              if (tileNum == tilesPerAnim) //technically we dont need this check in the case of cars since tilesPerAnim is 4 and tileNum is 2 bits
+		              if (tileNum == tilesPerAnim - 1'b1)
 				            tileNum <= 2'b0;
 				    	  else
 				            tileNum <= tileNum + 1'b1;
@@ -86,6 +86,8 @@ module car (
 	 
 	 always_comb
 	 begin
+	     P1Hit       = (SpawnEnable && p1Hit);
+	     P2Hit       = (SpawnEnable && p2Hit);
 	     CarPixel    = (SpawnEnable && carX   <= DrawX && DrawX < carX + carWidth && SpawnY <= DrawY && DrawY < SpawnY + carHeight);
 		  Tile        = (Type * tilesPerAnim) + tileNum;
 		  PixelX      = FaceLeft ? DrawX - carX : (carWidth - 1'b1) - (DrawX - carX);
@@ -95,7 +97,7 @@ module car (
 	 
 	 // MODULE INSTANTIATION
 	 
-	 collision p1 (.X1(P1X+P1HbOffset), .Y1(P1Y+10'd30), .Width1(10'd16), .Height1(10'd1), .X2(carX), .Y2(SpawnY+(carHeight-10'd16)), .Width2(carWidth), .Height2(10'd16), .Collided(P1Hit));
-	 collision p2 (.X1(P2X+P2HbOffset), .Y1(P2Y+10'd30), .Width1(10'd16), .Height1(10'd1), .X2(carX), .Y2(SpawnY+(carHeight-10'd16)), .Width2(carWidth), .Height2(10'd16), .Collided(P2Hit));
+	 collision p1 (.X1(P1X+P1HbOffset), .Y1(P1Y+10'd30), .Width1(10'd16), .Height1(10'd1), .X2(carX), .Y2(SpawnY+(carHeight-10'd16)), .Width2(carWidth), .Height2(10'd16), .Collided(p1Hit));
+	 collision p2 (.X1(P2X+P2HbOffset), .Y1(P2Y+10'd30), .Width1(10'd16), .Height1(10'd1), .X2(carX), .Y2(SpawnY+(carHeight-10'd16)), .Width2(carWidth), .Height2(10'd16), .Collided(p2Hit));
 
 endmodule

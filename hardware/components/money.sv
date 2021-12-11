@@ -1,5 +1,5 @@
 module money (
-    input  logic       FrameClk, SpawnEnable, P1Collected, P2Collected,
+    input  logic       FrameClk, SpawnEnable, P1Full, P2Full,
 	 input  logic [2:0] Random,
 	 input  logic [4:0] P1HbOffset, P2HbOffset,
     input  logic [9:0] SpawnX, DrawX, DrawY, P1X, P1Y, P2X, P2Y,
@@ -40,7 +40,7 @@ module money (
 				begin
 				
 				    //respawn logic
-					 if ((p1Collect && P1Collected) || (p2Collect && P2Collected))
+					 if (P1Collect || P2Collect)
 					     state <= 2'b0;
 		          else if (timer == respawnDuration + delay * 6'd60)
 						  spawned <= 1'b0;
@@ -60,8 +60,8 @@ module money (
 	 always_comb
 	 begin
 	     MoneyPixel = (SpawnEnable && SpawnX <= DrawX && DrawX < SpawnX + moneyWidth && SpawnY <= DrawY && DrawY < SpawnY + moneyHeight);
-		  P1Collect  = (p1Collect)  ? state : 2'b0;
-		  P2Collect  = (p2Collect && !p1Collect) ? state : 2'b0; //give collection priority to p1 in the edge case where they both collect the same money in the same frame
+		  P1Collect  = (p1Collect && !p2Collect && !P1Full) ? state : 2'b0; //give collection priority to p2, since p1 has win priority
+		  P2Collect  = (        p2Collect && !P2Full      ) ? state : 2'b0;
 		  Tile       = (MoneyPixel) ? state          : 2'b0;
 		  PixelX     = (MoneyPixel) ? DrawX - SpawnX : 5'b0;
 		  PixelY     = (MoneyPixel) ? DrawY - SpawnY : 5'b0;

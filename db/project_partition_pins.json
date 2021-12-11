@@ -72,6 +72,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "LED[9]",
+					"strict" : false
+				},
+				{
 					"name" : "HEX0[0]",
 					"strict" : false
 				},
