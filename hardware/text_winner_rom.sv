@@ -1,12 +1,12 @@
 module text_winner_rom (
-    input  logic [0:0] Tile,
+    input  logic Tile,
     input  logic [8:0] PixelX,
     input  logic [5:0] PixelY,
     output logic [5:0] Data
 );
 
     logic [48:0] data;
-    logic [6:0] bitmapIdx;
+    logic [7:0] bitmapIdx;
     logic [980:0] bitmap;
     logic [2:0] color;
 

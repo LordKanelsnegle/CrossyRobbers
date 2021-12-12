@@ -6,7 +6,7 @@ module car_rom (
 );
 
     logic [51:0] data;
-    logic [8:0] bitmapIdx;
+    logic [9:0] bitmapIdx;
     logic [143:0] bitmap;
     logic [2:0] color;
 

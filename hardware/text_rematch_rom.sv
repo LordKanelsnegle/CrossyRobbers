@@ -5,7 +5,7 @@ module text_rematch_rom (
 );
 
     logic [47:0] data = 48'b00000000000000000000000000000111110101010000000;
-    logic [5:0] bitmapIdx;
+    logic [6:0] bitmapIdx;
     logic [1196:0] bitmap;
     logic [2:0] color;
 

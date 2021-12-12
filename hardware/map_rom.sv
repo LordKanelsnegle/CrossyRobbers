@@ -6,7 +6,7 @@ module map_rom (
 );
 
     logic [55:0] data;
-    logic [11:0] bitmapIdx;
+    logic [12:0] bitmapIdx;
     logic [47:0] bitmap;
     logic [2:0] color;
 

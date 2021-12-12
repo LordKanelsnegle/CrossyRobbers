@@ -8,7 +8,7 @@ module player_rom (
 
     logic [5:0] pixel;
     logic [53:0] data;
-    logic [10:0] bitmapIdx;
+    logic [11:0] bitmapIdx;
     logic [95:0] bitmap;
     logic [2:0] color;
 

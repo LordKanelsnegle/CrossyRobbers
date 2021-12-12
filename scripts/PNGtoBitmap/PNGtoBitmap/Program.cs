@@ -200,14 +200,14 @@ namespace PNGtoBitmap
                 File.Delete($"{hardwarePath}/{name}_rom.sv");
             File.AppendAllText($"{hardwarePath}/{name}_rom.sv", $"module {name}_rom (" +
                                                     (name.Contains("pl") ? "\n    input  logic PlayerTwo," : "") +
-                                                    (tileBits > 0 ? $"\n    input  logic [{tileBits - 1}:0] Tile," : "") +
+                                                    (tileBits > 0 ? $"\n    input  logic {(tileBits > 1 ? $"[{tileBits - 1}:0] " : "")}Tile," : "") +
                                                     $"\n    input  logic [{pixelXBits - 1}:0] PixelX," +
                                                     $"\n    input  logic [{pixelYBits - 1}:0] PixelY," +
                                                     $"\n    output logic [{paletteBits - 1}:0] Data" +
                                                     $"\n);\n" +
                                                     (name.Contains("pl") ? $"\n    logic [{paletteBits - 1}:0] pixel;" : "") +
                                                     $"\n    logic [{dataWidth - 1}:0] data{(tileBits > 0 ? "" : $" = {data}")};" + 
-                                                    $"\n    logic [{addrWidth - 1}:0] bitmapIdx;" +
+                                                    $"\n    logic [{addrWidth}:0] bitmapIdx;" +
                                                     $"\n    logic [{bitmapWidth - 1}:0] bitmap;" +
                                                     $"\n    logic [{bitsPerPixel - 1}:0] color;\n" +
                                                     (tileBits > 0 ? $"\n    localparam bit [{dataWidth - 1}:0] DATA [{totalMaps}] = " + "'{" +

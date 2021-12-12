@@ -83,7 +83,7 @@ module game ( //TODO: ADD DIFFICULTY (0-2) AND MAP SELECTION (0-3) - SCALING ALR
 	 logic [4:0] moneyPixelY, m1PixelY, m2PixelY, m3PixelY, m4PixelY, m5PixelY;
 	 logic [5:0] money_data;
 	 
-    logic SpawnEnable, p1Dead, p2Dead, deposited;
+    logic SpawnEnable, p1Dead, p2Dead;
 	 logic P1Hit, c1P1Hit, c2P1Hit, c3P1Hit, c4P1Hit, c5P1Hit, c6P1Hit, c7P1Hit, c8P1Hit;
 	 logic P2Hit, c1P2Hit, c2P2Hit, c3P2Hit, c4P2Hit, c5P2Hit, c6P2Hit, c7P2Hit, c8P2Hit;
 	 logic P1Full, P2Full;
@@ -297,7 +297,7 @@ module game ( //TODO: ADD DIFFICULTY (0-2) AND MAP SELECTION (0-3) - SCALING ALR
 		      carTile   = c7Tile;
 		      carPixelX = c7PixelX;
 		      carPixelY = c7PixelY;
-		      PlayerPriority = (p1Pixel && P1Y[9:4] > lane6Tile) || (p2Pixel && P2Y[9:4] > lane6Tile);
+		      PlayerPriority = (p1Pixel && (P1Y+10'd32) >> 4 > lane6Tile) || (p2Pixel && (P2Y+10'd32) >> 4 > lane6Tile);
 		  end
 		  else if (c7Pixel)
 		  begin
@@ -307,7 +307,7 @@ module game ( //TODO: ADD DIFFICULTY (0-2) AND MAP SELECTION (0-3) - SCALING ALR
 		      carTile   = c8Tile;
 		      carPixelX = c8PixelX;
 		      carPixelY = c8PixelY;
-		      PlayerPriority = (p1Pixel && P1Y[9:4] > lane7Tile) || (p2Pixel && P2Y[9:4] > lane7Tile);
+		      PlayerPriority = (p1Pixel && (P1Y+10'd32) >> 4 > lane7Tile) || (p2Pixel && (P2Y+10'd32) >> 4 > lane7Tile);
 		  end
 		  else if (c8Pixel)
 		  begin
@@ -317,7 +317,7 @@ module game ( //TODO: ADD DIFFICULTY (0-2) AND MAP SELECTION (0-3) - SCALING ALR
 		      carTile   = 4'b0;
 		      carPixelX = 6'b0;
 		      carPixelY = 5'b0;
-		      PlayerPriority = (p1Pixel && P1Y[9:4] > lane8Tile) || (p2Pixel && P2Y[9:4] > lane8Tile);
+		      PlayerPriority = (p1Pixel && (P1Y+10'd32) >> 4 > lane8Tile) || (p2Pixel && (P2Y+10'd32) >> 4 > lane8Tile);
 		  end
 		  else
 		  begin
@@ -372,7 +372,7 @@ module game ( //TODO: ADD DIFFICULTY (0-2) AND MAP SELECTION (0-3) - SCALING ALR
 					.PixelX(p2PixelX),       .PixelY(p2PixelY),       .HbOffset(P2HbOffset),     .Score(p2Score),
 					.PlayerX(P2X),           .PlayerY(P2Y), .*);
 	 
-	 //Cars - Car Speed is set to be inversely proportional to the Car Count to avoid super fast clusters of cars, but this could be tweaked or made into a difficulty thing. also, lanes support up to 6 cars, but this will yield a max of 5
+	 //Cars - Car Speed is set to be inversely proportional to the Car Count to avoid super fast clusters of cars, but this could be tweaked or made into a difficulty thing
 	 lane #(.TileY(lane1Tile)) lane1 (.SpawnEnable(SpawnEnable && difficulty), .Direction(Random[0]), .CarType(Random[ 9:8 ]), .CarCount(Random[25:24] + 1'b1), .CarSpeed(3'd4 - Random[25:24] + difficulty),
 	                                                                           .P1Hit(c1P1Hit),       .P2Hit(c1P2Hit),         .CarPixel(c1Pixel),
 																								      .Tile(c1Tile),         .PixelX(c1PixelX),       .PixelY(c1PixelY), .*);

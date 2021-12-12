@@ -5,7 +5,7 @@ module text_difficulty_rom (
 );
 
     logic [47:0] data = 48'b00000000000000000000000000000111110000000101010;
-    logic [8:0] bitmapIdx;
+    logic [9:0] bitmapIdx;
     logic [1097:0] bitmap;
     logic [2:0] color;
 

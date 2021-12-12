@@ -27,7 +27,7 @@ module player (
 	 localparam [9:0] SpawnY        = 10'd400;
 	 logic [9:0] SpawnX;
 	 
-	 logic spawned, dead, faceLeft, moved, deposited;
+	 logic spawned, firstSpawn, dead, faceLeft, moved, deposited;
 	 logic [1:0] items;
 	 logic [2:0] itemsVal;
 	 logic [2:0] speed;
@@ -60,6 +60,11 @@ module player (
 		   	    playerX  <= SpawnX;
 		   	    playerY  <= SpawnY;
 					 spawned  <= 1'b1;
+				    if (firstSpawn)
+					 begin
+			           score      <= 7'b0;
+					     firstSpawn <= 1'b0;
+					 end
 			   end
 				else
 				begin
@@ -171,8 +176,8 @@ module player (
         end
 		  else
 		  begin
-			   score    <= 7'b0;
-		      spawned  <= 1'b0;
+				firstSpawn <= 1'b1;
+		      spawned    <= 1'b0;
 		  end
     end
 	 

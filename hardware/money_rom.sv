@@ -6,7 +6,7 @@ module money_rom (
 );
 
     logic [49:0] data;
-    logic [5:0] bitmapIdx;
+    logic [6:0] bitmapIdx;
     logic [53:0] bitmap;
     logic [2:0] color;
 

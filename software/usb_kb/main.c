@@ -130,16 +130,16 @@ int main() {
 						case 0x16: //S
 							keycode |= 16; //0001 0000
 							break;
-						case 0x50: //left
+						case 0x0d: //left
 							keycode |= 8; //0000 1000
 							break;
-						case 0x4f: //right
+						case 0x0f: //right
 							keycode |= 4; //0000 0100
 							break;
-						case 0x52: //up
+						case 0x0c: //up
 							keycode |= 2; //0000 0010
 							break;
-						case 0x51: //down
+						case 0x0e: //down
 							keycode |= 1; //0000 0001
 							break;
 					}
