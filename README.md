@@ -8,6 +8,7 @@ Each lane has a random number of cars, with speeds determined by the number of c
 
 We've implemented this game entirely in hardware with the exception of the USB driver for the keyboard. Note that you may need to change the keycodes (WASD/arrows) checked by the switch cases in `software/usb_kb/main.c` since they vary from keyboard to keyboard, and that membrane keyboards may prevent you from being able to control both players due to physical limitations in their designs. A mechanical keyboard is thus very strongly advised, though even then you may have to mind the key rollover limit (should not be an issue in normal gameplay though). For instructions on how to edit your keycodes, check below.
 
+[Demo video here!](https://drive.google.com/file/d/1G1Z4NuNsJhKlOoBdf4irFkONP2pcbKY5/view)
 
 # Getting Started
 
